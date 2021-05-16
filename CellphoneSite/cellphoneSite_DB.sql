@@ -12,6 +12,9 @@ CREATE TABLE `cellphonesite`.`user` (
   `password` VARCHAR(45) NOT NULL,
   `enabled` TINYINT NOT NULL,
   PRIMARY KEY (`id`));
+  
+  alter table `users` add column email varchar(45) not null;
+  
   CREATE TABLE `cellphonesite`.`role_user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `role` VARCHAR(45) NOT NULL COMMENT 'phan_quyen_user',
