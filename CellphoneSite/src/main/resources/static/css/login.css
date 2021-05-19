@@ -14,16 +14,16 @@ body {
 /* Full-width input fields */
 .input-login[type=email], input[type=password] {
   width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
+  padding: 10px;
+  margin: 5px 0 15px 0;
   display: inline-block;
   border-radius: 10px;
   background: #f1f1f1;
 }
 .input-login[type=text], input[type=password] {
   width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
+  padding: 10px;
+  margin: 5px 0 15px 0;
   display: inline-block;
   border-radius: 10px;
   background: #f1f1f1;
@@ -36,8 +36,8 @@ body {
 
 /* Overwrite default styles of hr */
 hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
+  border: 1px solid rgb(192, 192, 192);
+  margin-bottom: 10px;
 }
 
 /* Set a style for the submit/register button */
@@ -61,6 +61,7 @@ hr {
   width: 100%;
   margin: 0;
   cursor: pointer;
+  border: none;
   border-radius: 10px;
   padding: 16px 20px;
 }

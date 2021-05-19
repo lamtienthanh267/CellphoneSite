@@ -13,7 +13,12 @@ public class WebController {
 	}
 	
 	@GetMapping("/login")
-	public String showLoginView() {
+	public String showLoginPage() {
 		return "login";
+	}
+	
+	@RequestMapping("/register")
+	public String showRegisterPage() {
+		return "register";
 	}
 }

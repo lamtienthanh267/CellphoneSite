@@ -89,28 +89,31 @@
 					</div>
 				</div>
 			</header>
-			<form th:action="@{dologin}" style="padding: 20px 20px;" method = "POST">
+			<form action="" style="padding: 20px 20px;">
 				<div class="container-login">
 					<!--<h2>ĐĂNG NHẬP</h2>-->
-					<h4>Điền thông tin đăng nhập</h4>
+					<h4>Điền thông tin đăng ký</h4>
 					<hr>
 			
 					<label> <b>Tên đăng nhập</b> </label>
-					<input class="input-login" type="text" placeholder="Nhập tên tài khoản" name="username" id="username">
-			
+					<input class="input-login" type="text" 
+						placeholder="Nhập tên tài khoản" name="username" id="username">
+
 					<label> <b>Mật khẩu</b> </label>
-					<input class="input-login" type="password" placeholder="Nhập mật khẩu" name="password" id="password">
-					<hr>
-					<a href="/register">Đăng ký tài khoản?</a>
-					&nbsp;
-					&nbsp;
-					<a href="forgetPassword_form.html">Quên mật khẩu?</a> 
+					<input  type="password" 
+						placeholder="Nhập mật khẩu" name="password" id="repassword">
 					
-					<br><br>
-					<button type="submit" class="loginbtn">Đăng nhập</button>
+					<label> <b>Mật khẩu</b> </label>
+					<input  type="password" 
+						placeholder="Nhập lại mật khẩu" name="password" id="repassword">
+					
+					<label> <b>Email</b> </label>
+					<input class="input-login" type="email" 
+						placeholder="Nhập email" name="email" id="email"> <br><br>					
+					
+					<button type="submit" class="loginbtn">Đăng Ký</button>
 				</div>
 			</form>
-			
 			<footer>
 				<div class="container">
 					<div class="row">
