@@ -17,6 +17,16 @@ public class WebController {
 		return "login";
 	}
 	
+	@GetMapping("/login_error")
+	public String showLogin_Error() {
+		return "login_error";
+	}
+	
+	@GetMapping("/403")
+	public String show403() {
+		return "403";
+	}
+	
 	@RequestMapping("/register")
 	public String showRegisterPage() {
 		return "register";

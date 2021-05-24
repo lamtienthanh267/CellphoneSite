@@ -14,6 +14,7 @@ public class OnAuthenticationSuccessHandler implements AuthenticationSuccessHand
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
+		
 		System.out.println("authenticationSuccessHandler: login successfull");
 		
 		String username = authentication.getName();

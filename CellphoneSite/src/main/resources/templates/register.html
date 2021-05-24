@@ -25,10 +25,14 @@
 							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 								<div class="top-menu">
 									<ul>
-										<li><a href="#">Giỏ hàng</a></li>
-										<li><a href="#">Cửa hàng</a></li>
-										<li><a th:href="@{/login}">Tài khoản</a></li>
-										<li><a href="#">Liên hệ</a></li>
+										<li><a th:href="@{/register}">Đăng ký</a></li>
+										<li sec:authorize="isAnonymous()"><a th:href="@{/login}">Đăng nhập</a></li>
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/}">Đăng xuất</a></li>
+										<li sec:authorize="isAuthenticated()">
+											<a th:href="@{/user_profile}">
+												<div sec:authentication="name"></div>
+											</a>
+										</li>
 									</ul>
 								</div>
 							</div>

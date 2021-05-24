@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -27,6 +26,6 @@ public class OnAuthenticationFailureHandler implements AuthenticationFailureHand
 		System.out.println("autheticationException: "+ exception.getLocalizedMessage());
 		System.out.println("authenticationFailureHandler: fail to login");
 		
-		response.sendRedirect("/login_error");
+		response.sendRedirect("/cellphonesite/login_error");
 	}
 }

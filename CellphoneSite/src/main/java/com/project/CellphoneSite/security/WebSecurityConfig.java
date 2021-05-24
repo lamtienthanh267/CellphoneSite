@@ -30,28 +30,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new UserDetailsServiceImpl();
 	}
 	
-	@Bean
-	public DaoAuthenticationProvider authenticationProvider() {			
-		
-		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		
-		authProvider.setUserDetailsService(userDetailsService());
-		authProvider.setPasswordEncoder(passwordEncoder());
-		
-		return authProvider ;
-	}
-	
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authenticationProvider());
-	}
+//	@Bean
+//	public DaoAuthenticationProvider authenticationProvider() {			
+//		
+//		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+//		
+//		authProvider.setUserDetailsService(userDetailsService());
+//		authProvider.setPasswordEncoder(passwordEncoder());
+//		
+//		return authProvider ;
+//	}
+//	
+//	@Override
+//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.authenticationProvider(authenticationProvider());
+//	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/", "/register", "/css/**",
+		.antMatchers("/", "/register", "/css/**", "/login_error", "/403",
 				"/images/**", "/js/**", "/libs/**")
 		.permitAll()
+		.antMatchers("/register").hasAnyAuthority("admin")
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login").permitAll()
 		.usernameParameter("username")
@@ -59,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.loginProcessingUrl("/dologin")
 		.successHandler(new OnAuthenticationSuccessHandler())
 		.failureHandler(new OnAuthenticationFailureHandler())
-		.and().logout().permitAll();
+		.and().logout().permitAll()
+		.and().exceptionHandling().accessDeniedPage("/403");
 	}
 }
