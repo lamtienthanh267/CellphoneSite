@@ -7,7 +7,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.project.CellphoneSite.daos.UserRepository;
 import com.project.CellphoneSite.helper.AppString;
+import com.project.CellphoneSite.models.Role;
 import com.project.CellphoneSite.models.User;
+import com.project.CellphoneSite.security.MyUserDetails;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -24,7 +26,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException(AppString.usernameNotFound);
 		}
 		
-		return null;
+		for(Role role : user.getRole()) {
+			System.out.println("user: "+user.getUsername()+ " has role "+role.getRole_name());
+		}
+		
+		return new MyUserDetails(user);
 	}
 
 }

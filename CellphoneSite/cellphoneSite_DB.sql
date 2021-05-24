@@ -184,3 +184,30 @@ DEFAULT CHARACTER SET = utf8;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+ALTER TABLE `cellphonesite`.`user` 
+DROP COLUMN `email`;
+
+ALTER TABLE `cellphonesite`.`user` 
+CHANGE COLUMN `enabled` `enabled` TINYINT NOT NULL DEFAULT 1 ;
+
+ALTER TABLE `cellphonesite`.`user` 
+CHANGE COLUMN `password` `password` VARCHAR(256) NOT NULL ;
+
+INSERT INTO `cellphonesite`.`role` (`id`, `role`) VALUES ('1', 'admin');
+INSERT INTO `cellphonesite`.`role` (`id`, `role`) VALUES ('2', 'product_manager');
+INSERT INTO `cellphonesite`.`role` (`id`, `role`) VALUES ('3', 'sale');
+
+INSERT INTO `cellphonesite`.`user` (`id`, `username`, `password`, `enabled`) VALUES ('1', 'admin', '$2a$10$Ux9hR.Nf4QYeUlgsWU3n7OzUt/.AFQnztx3m8OOCceKHcK5cimM8K', '1');
+INSERT INTO `cellphonesite`.`user` (`id`, `username`, `password`, `enabled`) VALUES ('2', 'manager', '$2a$10$Ux9hR.Nf4QYeUlgsWU3n7OzUt/.AFQnztx3m8OOCceKHcK5cimM8K', '1');
+INSERT INTO `cellphonesite`.`user` (`id`, `username`, `password`, `enabled`) VALUES ('3', 'sale', '$2a$10$Ux9hR.Nf4QYeUlgsWU3n7OzUt/.AFQnztx3m8OOCceKHcK5cimM8K', '1');
+
+ALTER TABLE `cellphonesite`.`user_role` 
+ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT AFTER `user_id`,
+ADD PRIMARY KEY (`id`);
+;
+INSERT INTO `cellphonesite`.`user_role` (`id`, `roler_id`, `user_id`) VALUES ('1', '1', '1');
+INSERT INTO `cellphonesite`.`user_role` (`id`, `roler_id`, `user_id`) VALUES ('2', '2', '1');
+INSERT INTO `cellphonesite`.`user_role` (`id`, `roler_id`, `user_id`) VALUES ('3', '2', '2');
+INSERT INTO `cellphonesite`.`user_role` (`id`, `roler_id`, `user_id`) VALUES ('4', '3', '2');
+INSERT INTO `cellphonesite`.`user_role` (`id`, `roler_id`, `user_id`) VALUES ('5', '3', '3');

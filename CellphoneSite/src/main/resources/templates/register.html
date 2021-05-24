@@ -27,7 +27,7 @@
 									<ul>
 										<li><a href="#">Giỏ hàng</a></li>
 										<li><a href="#">Cửa hàng</a></li>
-										<li><a href="/login">Tài khoản</a></li>
+										<li><a th:href="@{/login}">Tài khoản</a></li>
 										<li><a href="#">Liên hệ</a></li>
 									</ul>
 								</div>
@@ -105,11 +105,22 @@
 					
 					<label> <b>Mật khẩu</b> </label>
 					<input  type="password" 
-						placeholder="Nhập lại mật khẩu" name="password" id="repassword">
+						placeholder="Nhập lại mật khẩu" name="password" id="repassword">														
 					
-					<label> <b>Email</b> </label>
-					<input class="input-login" type="email" 
-						placeholder="Nhập email" name="email" id="email"> <br><br>					
+					<label>
+						<input type="checkbox" id="role" name="role" value="admin">&nbsp;
+						Admin
+					</label>
+					&nbsp;&nbsp;
+					<label> 
+						<input type="checkbox" id="role" name="role" value="product_manager">&nbsp;
+						Quản lý bán hàng
+					</label>
+					&nbsp;&nbsp;
+					<label> 
+						<input type="checkbox" id="role" name="role" value="sale">&nbsp;
+						Bán hàng
+					</label>
 					
 					<button type="submit" class="loginbtn">Đăng Ký</button>
 				</div>
