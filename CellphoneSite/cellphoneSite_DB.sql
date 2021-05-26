@@ -211,3 +211,5 @@ INSERT INTO `cellphonesite`.`user_role` (`id`, `roler_id`, `user_id`) VALUES ('2
 INSERT INTO `cellphonesite`.`user_role` (`id`, `roler_id`, `user_id`) VALUES ('3', '2', '2');
 INSERT INTO `cellphonesite`.`user_role` (`id`, `roler_id`, `user_id`) VALUES ('4', '3', '2');
 INSERT INTO `cellphonesite`.`user_role` (`id`, `roler_id`, `user_id`) VALUES ('5', '3', '3');
+
+INSERT INTO `cellphonesite`.`role` (`id`, `role`) VALUES ('4', 'inventory_manager');

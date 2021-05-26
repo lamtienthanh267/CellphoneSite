@@ -49,10 +49,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/", "/register", "/css/**", "/login_error", "/403",
-				"/images/**", "/js/**", "/libs/**")
+		.antMatchers("/", "/register", "/css/**", "/login_error", "/403", "/management_page_master", "/add_user",
+				"/images/**", "/js/**", "/libs/**", "/vendors/**", "/src/**")
 		.permitAll()
-		.antMatchers("/register").hasAnyAuthority("admin")
+		.antMatchers("/add_user").hasAnyAuthority("admin")
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login").permitAll()
 		.usernameParameter("username")

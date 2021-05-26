@@ -28,6 +28,8 @@ public class UserService {
 	}
 	
 	public void addUser(User user) {
+	
 		repo.save(user);
+		System.out.println("register successfull");
 	}
 }
