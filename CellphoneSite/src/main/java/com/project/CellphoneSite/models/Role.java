@@ -1,10 +1,18 @@
 package com.project.CellphoneSite.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +26,12 @@ public class Role {
 	@Column(name = "role")
 	private String role_name;
 	
+	@ManyToMany(mappedBy = "role")
+//	@JoinTable(name="user_role",
+//	joinColumns = @JoinColumn(name="role_id"),
+//	inverseJoinColumns = @JoinColumn(name="user_id"))
+	private Set<User> userList = new HashSet<>();
+	
 	public int getId() {
 		return id;
 	}
@@ -30,5 +44,11 @@ public class Role {
 	public void setRole_name(String role_name) {
 		this.role_name = role_name;
 	}
+//	public Set<User> getUserList() {
+//		return userList;
+//	}
+//	public void setUserList(Set<User> userList) {
+//		this.userList = userList;
+//	}
 
 }

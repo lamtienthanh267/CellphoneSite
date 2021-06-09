@@ -1,5 +1,6 @@
 package com.project.CellphoneSite.models;
 
+import java.beans.Transient;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -72,5 +73,24 @@ public class User {
 	public void setRole(Set<Role> role) {
 		this.role = role;
 	}
+	
+	@Transient
+	public String getRoleUser() {
+		String roleUser = "";
+		for (Role r : role) {
 		
+			roleUser += r.getRole_name() +", ";
+			
+		}
+
+		return roleUser ;
+	}
+	
+//	@Transient
+//	public Set<Role> setRoleUser(int id) {
+//		Set<Role> roleList = new HashSet<Role>();
+//		
+//		roleList.add(r);
+//		return roleList ;
+//	}
 }

@@ -42,27 +42,13 @@ public class WebController {
 	
 //	@GetMapping("/register")
 //	public String showRegisterPage(Model model) {
-//		
-//		User user = new User();
-//		model.addAttribute("user",user);
-//		System.out.println("get model user done");
-//		return "register";
+	
 //	}
-//	
+	
 //	@Autowired
 //	private UserService userService;
 //	
-//	//@PostMapping("/register")
-//	@RequestMapping(value="/register", method = RequestMethod.POST)
-//	public String doRegister(@ModelAttribute("user") User userRegister) {
-//		System.out.println("register doing");
-//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//		userRegister.setPassword(encoder.encode(userRegister.getPassword()));
-//		userRegister.setEnabled(true);
-//		
-//		if(userService.getUserByUsername(userRegister.getUsername())==null) {
-//			
-//			userService.addUser(userRegister);			
+			
 //			return "redirect:/login";
 //		}
 //		
