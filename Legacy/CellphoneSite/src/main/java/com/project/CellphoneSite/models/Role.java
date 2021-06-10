@@ -1,5 +1,6 @@
 package com.project.CellphoneSite.models;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,16 +21,17 @@ import javax.persistence.Table;
 public class Role {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="role_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	@Column(name = "role")
 	private String role_name;
 	
-	@ManyToMany(mappedBy = "role")
-//	@JoinTable(name="user_role",
-//	joinColumns = @JoinColumn(name="role_id"),
-//	inverseJoinColumns = @JoinColumn(name="user_id"))
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name="user_role",
+	joinColumns = @JoinColumn(name="role_id"),
+	inverseJoinColumns = @JoinColumn(name="user_id"))
 	private Set<User> userList = new HashSet<>();
 	
 	public int getId() {
@@ -44,11 +46,11 @@ public class Role {
 	public void setRole_name(String role_name) {
 		this.role_name = role_name;
 	}
-//	public Set<User> getUserList() {
-//		return userList;
-//	}
-//	public void setUserList(Set<User> userList) {
-//		this.userList = userList;
-//	}
+	public Set<User> getUserList() {
+		return userList;
+	}
+	public void setUserList(Set<User> userList) {
+		this.userList = userList;
+	}
 
 }
