@@ -19,6 +19,31 @@ import com.project.models.entities.User;
 @Controller
 public class UserController {
 	
+	@RequestMapping("/")
+	public String showHomePage() {
+		return "index";
+	}
+	
+	@GetMapping("/login")
+	public String showLoginPage() {
+		return "login";
+	}
+	
+	@GetMapping("/login_error")
+	public String showLogin_Error() {
+		return "login_error";
+	}
+	
+	@GetMapping("/403")
+	public String show403() {
+		return "403";
+	}
+	
+	@GetMapping("/user_profile")
+	public String showUserProfilePage() {
+		return "user_profile";
+	}
+	
 	@GetMapping("/management_page_master")
 	public String managerPageView() {
 		
