@@ -28,7 +28,7 @@ public class User {
 	private String password;
 	private Boolean enabled;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="user_role",
 				joinColumns = @JoinColumn(name="user_id"),
 				inverseJoinColumns = @JoinColumn(name="role_id"))
@@ -79,10 +79,9 @@ public class User {
 		String roleUser = "";
 		for (Role r : role) {
 		
-			roleUser += r.getRole_name() +", ";
-			
+			roleUser += r.getRole_name() +", ";			
 		}
-
+		
 		return roleUser ;
 	}
 	

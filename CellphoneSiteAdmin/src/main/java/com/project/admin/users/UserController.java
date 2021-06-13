@@ -24,9 +24,9 @@ public class UserController {
 		return "index";
 	}
 	
-	@GetMapping("/login")
+	@GetMapping("/login_user")
 	public String showLoginPage() {
-		return "login";
+		return "login_user";
 	}
 	
 	@GetMapping("/login_error")
