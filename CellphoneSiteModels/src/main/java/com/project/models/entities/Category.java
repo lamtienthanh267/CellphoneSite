@@ -25,7 +25,7 @@ public class Category {
 	
 	private String code;
 	
-	@OneToMany(mappedBy = "product")
+	@OneToMany(mappedBy = "category")
 	private Set<Product> productList;
 	
 	public Integer getId() {

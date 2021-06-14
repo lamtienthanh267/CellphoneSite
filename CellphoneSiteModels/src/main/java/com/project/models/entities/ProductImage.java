@@ -20,7 +20,7 @@ public class ProductImage {
 	
 	@ManyToOne
 	@JoinColumn(name="product_id", nullable = false)
-	private Integer productId;
+	private Product product;
 
 	public Integer getId() {
 		return id;
@@ -38,12 +38,12 @@ public class ProductImage {
 		this.fileName = fileName;
 	}
 
-	public Integer getProductId() {
-		return productId;
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setProductId(Integer productId) {
-		this.productId = productId;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 	
 	

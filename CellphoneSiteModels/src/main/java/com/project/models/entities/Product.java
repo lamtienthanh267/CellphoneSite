@@ -1,5 +1,8 @@
 package com.project.models.entities;
 
+import java.util.Date;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,13 +38,19 @@ public class Product {
 	
 	private Boolean newest;
 	
+	@Column(name="date_create")
+	private Date dateCreate;
+	
+	@Column(name="date_edit")
+	private Date dateEdit;
+	
 	private Float price;
 	
 	@Column(name="price_competitive")
 	private Float priceCompetitive;
 	
-	@OneToMany(mappedBy = "product_image")
-	private ProductImage image;
+	@OneToMany(mappedBy = "product")
+	private Set<ProductImage> image;
 	
 	@Column(name="total_amount")
 	private Integer totalAmount;
@@ -157,13 +166,28 @@ public class Product {
 		this.category = category;
 	}
 
-	public ProductImage getImage() {
+	public Date getDateCreate() {
+		return dateCreate;
+	}
+
+	public void setDateCreate(Date dateCreate) {
+		this.dateCreate = dateCreate;
+	}
+
+	public Date getDateEdit() {
+		return dateEdit;
+	}
+
+	public void setDateEdit(Date dateEdit) {
+		this.dateEdit = dateEdit;
+	}
+
+	public Set<ProductImage> getImage() {
 		return image;
 	}
 
-	public void setImage(ProductImage image) {
+	public void setImage(Set<ProductImage> image) {
 		this.image = image;
 	}
-	
-	
+		
 }
