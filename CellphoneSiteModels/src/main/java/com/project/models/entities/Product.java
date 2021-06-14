@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Product {
@@ -37,7 +40,8 @@ public class Product {
 	@Column(name="price_competitive")
 	private Float priceCompetitive;
 	
-	private String image;
+	@OneToMany(mappedBy = "product_image")
+	private ProductImage image;
 	
 	@Column(name="total_amount")
 	private Integer totalAmount;
@@ -45,8 +49,9 @@ public class Product {
 	@Column(name="brand_id")
 	private Integer brandId;
 	
-	@Column(name="product_type_id")
-	private Integer productTypeId;
+	@ManyToOne
+	@JoinColumn(name="product_type_id",nullable = false)
+	private Category category;
 
 	public Integer getProductId() {
 		return productId;
@@ -128,14 +133,6 @@ public class Product {
 		this.priceCompetitive = priceCompetitive;
 	}
 
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
 	public Integer getTotalAmount() {
 		return totalAmount;
 	}
@@ -152,12 +149,20 @@ public class Product {
 		this.brandId = brandId;
 	}
 
-	public Integer getProductTypeId() {
-		return productTypeId;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setProductTypeId(Integer productTypeId) {
-		this.productTypeId = productTypeId;
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public ProductImage getImage() {
+		return image;
+	}
+
+	public void setImage(ProductImage image) {
+		this.image = image;
 	}
 	
 	
