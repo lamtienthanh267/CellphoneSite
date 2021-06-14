@@ -3,13 +3,16 @@ package com.project.admin.users;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.project.admin.role.RoleService;
 import com.project.models.entities.Role;
@@ -89,13 +92,30 @@ public class UserController {
 		return "list_user";
 	}
 	
-	@GetMapping("/edit_user")
-	public String editUserView(Model model) {
-		User user = new User();
-		//List<Role> allRole = roleService.getAllRole();
-		model.addAttribute("user",user);
-		//model.addAttribute("allRole", allRole);
-		return "add_user";
+	@RequestMapping("edit_user/{id}")
+	public ModelAndView doEditUser(@PathVariable(name="id") Integer id) {
+		
+		User user = userService.getUserById(id);
+		ModelAndView modelAndView = new ModelAndView("edit_user");
+		modelAndView.addObject(user);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/edit_user", method = RequestMethod.POST)
+	public String doEditUser(@ModelAttribute("user") User userEdit) {
+		System.out.println(userEdit.getUsername());
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		userEdit.setPassword(encoder.encode(userEdit.getPassword()));
+		userService.addUser(userEdit);			
+		return "redirect:/list_user";
+
+	}
+	
+	@RequestMapping("delete_user/{id}")
+	public String deleteUser(@PathVariable(name = "id") Integer id) {
+		userService.deleteUser(id);
+		return "redirect:/list_user";
 	}
 }
 

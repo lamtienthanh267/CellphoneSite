@@ -20,13 +20,20 @@ public class UserService {
 		return repo.findAll();
 	}
 	
+	public User getUserById(Integer id) {
+		return repo.getById(id);
+	}
+	
 	public User getUserByUsername(String username) {
 		return repo.getUserByUsername(username);
 	}
 	
 	public void addUser(User user) {
-	
 		repo.save(user);
 		System.out.println("register successfull");
+	}
+	
+	public void deleteUser(Integer id) {
+		repo.deleteById(id);
 	}
 }

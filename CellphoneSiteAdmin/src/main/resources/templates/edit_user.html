@@ -72,12 +72,14 @@
 							</div>
 							<div class="x_content">
 								<br />
-								<form th:action="@{add_user}" class="form-horizontal form-label-left" th:object="${user}" method="POST">
-			
+								<form th:action="@{/edit_user}" class="form-horizontal form-label-left" th:object="${user}" method="POST">
+									
+									<input type="text" name="user_id" th:field="*{userId}" hidden="true">
+									
 									<div class="form-group row ">
 										<label class="control-label col-md-3 col-sm-3 ">Tên đăng nhập</label>
 										<div class="col-md-9 col-sm-9 ">
-											<input type="text" class="form-control" th:field="*{username}" placeholder="Nhập tên đăng nhập">
+											<input type="text" class="form-control" name="name" th:field="*{username}" readonly >
 										</div>
 									</div>
 			

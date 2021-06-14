@@ -16,6 +16,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.transaction.annotation.Transactional;
+
+
 @Entity
 @Table(name="user")
 public class User {
@@ -85,11 +88,4 @@ public class User {
 		return roleUser ;
 	}
 	
-//	@Transient
-//	public Set<Role> setRoleUser(int id) {
-//		Set<Role> roleList = new HashSet<Role>();
-//		
-//		roleList.add(r);
-//		return roleList ;
-//	}
 }
