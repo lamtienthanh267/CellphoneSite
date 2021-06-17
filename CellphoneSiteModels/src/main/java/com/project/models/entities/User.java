@@ -4,7 +4,6 @@ import java.beans.Transient;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,8 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.springframework.transaction.annotation.Transactional;
-
 
 @Entity
 @Table(name="user")
@@ -26,7 +23,7 @@ public class User {
 	@Id
 	@Column(name="user_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int userId;
+	private Integer userId;
 	private String username;
 	private String password;
 	private Boolean enabled;
@@ -37,11 +34,11 @@ public class User {
 				inverseJoinColumns = @JoinColumn(name="role_id"))
 	private Set<Role> role = new HashSet<>();
 	
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 	
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 	

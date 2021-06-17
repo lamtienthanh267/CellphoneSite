@@ -68,16 +68,16 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping(value="/add_user", method = RequestMethod.POST)
-	public String doRegister(@ModelAttribute("user") User userRegister) {
+	public String doAddUser(@ModelAttribute("user") User user) {
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		userRegister.setPassword(encoder.encode(userRegister.getPassword()));
+		user.setPassword(encoder.encode(user.getPassword()));
 		
-		if(userService.getUserByUsername(userRegister.getUsername())==null) {
-			for(Role r :userRegister.getRole()) {
+		if(userService.getUserByUsername(user.getUsername())==null) {
+			for(Role r :user.getRole()) {
 				System.out.println(r.getRole_name());
 			}
-			userService.addUser(userRegister);			
+			userService.addUser(user);			
 			return "redirect:/list_user";
 		}
 		
@@ -91,22 +91,25 @@ public class UserController {
 		return "list_user";
 	}
 	
-	@RequestMapping("edit_user/{id}")
+	@RequestMapping("/edit_user/{id}")
 	public ModelAndView doEditUser(@PathVariable(name="id") Integer id) {
-		
+		List<Role> allRole = roleService.getAllRole();
 		User user = userService.getUserById(id);
+		System.out.println("edit user: "+user.getUsername());
 		ModelAndView modelAndView = new ModelAndView("edit_user");
-		modelAndView.addObject(user);
+		
+		modelAndView.addObject("user",user);
+		modelAndView.addObject("allRole",allRole);
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/edit_user", method = RequestMethod.POST)
-	public String doEditUser(@ModelAttribute("user") User userEdit) {
-		System.out.println(userEdit.getUsername());
+	public String editUser(@ModelAttribute("user") User user) {
+		System.out.println("save user:"+user.getUsername());
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		userEdit.setPassword(encoder.encode(userEdit.getPassword()));
-		userService.addUser(userEdit);			
+		user.setPassword(encoder.encode(user.getPassword()));
+		userService.addUser(user);			
 		return "redirect:/list_user";
 
 	}

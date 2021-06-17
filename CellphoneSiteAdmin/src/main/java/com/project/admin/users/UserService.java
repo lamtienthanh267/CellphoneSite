@@ -21,7 +21,7 @@ public class UserService {
 	}
 	
 	public User getUserById(Integer id) {
-		return repo.getById(id);
+		return repo.getUserByUserId(id);
 	}
 	
 	public User getUserByUsername(String username) {
@@ -30,7 +30,7 @@ public class UserService {
 	
 	public void addUser(User user) {
 		repo.save(user);
-		System.out.println("register successfull");
+		System.out.println("add user successfull");
 	}
 	
 	public void deleteUser(Integer id) {

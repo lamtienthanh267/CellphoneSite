@@ -117,7 +117,7 @@
 										<label class="col-md-3 col-sm-3  control-label">Vai trò người dùng</label>			
 
 										<div class="col-md-9 col-sm-9" >
-											<div class="checkbox" th:each="${r: allRole}">
+											<div class="checkbox" th:each="r: ${allRole}">
 												<label>
 													<input type="checkbox" class="flat" name="role" th:field="*{role}"  th:value="${r.id}"  th:check> [[${r.role_name}]]
 												</label>
