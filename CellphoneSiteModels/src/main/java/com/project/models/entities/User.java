@@ -4,6 +4,7 @@ import java.beans.Transient;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -33,6 +35,10 @@ public class User {
 				joinColumns = @JoinColumn(name="user_id"),
 				inverseJoinColumns = @JoinColumn(name="role_id"))
 	private Set<Role> role = new HashSet<>();
+	
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name="user_id", referencedColumnName = "user_id")
+	private UserProfile userProfile;
 	
 	public Integer getUserId() {
 		return userId;
@@ -74,6 +80,14 @@ public class User {
 		this.role = role;
 	}
 	
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
+
 	@Transient
 	public String getRoleUser() {
 		String roleUser = "";
@@ -84,5 +98,5 @@ public class User {
 		
 		return roleUser ;
 	}
-	
+		
 }

@@ -1,9 +1,297 @@
 <!DOCTYPE html>
-<html lang="vi">
-	<head>
-		<title>USER PROFILE</title>
-	</head>
-	<body>
-		<h1>YOUR PROFILE..</h1>
-	</body>
+<html lang="vi"  xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Management page</title>
+
+	<!-- Bootstrap -->
+	<link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+	<!-- NProgress -->
+	<link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+	<!-- iCheck -->
+	<link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+	<!-- bootstrap-wysiwyg -->
+	<link th:href="@{/vendors/google-code-prettify/bin/prettify.min.css}" rel="stylesheet">
+	<!-- Select2 -->
+	<link th:href="@{/vendors/select2/dist/css/select2.min.css}" rel="stylesheet">
+	<!-- Switchery -->
+	<link th:href="@{/vendors/switchery/dist/switchery.min.css}" rel="stylesheet">
+	<!-- starrr -->
+	<link th:href="@{/vendors/starrr/dist/starrr.css}" rel="stylesheet">
+	<!-- bootstrap-daterangepicker -->
+	<link th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
+
+	<!-- Custom Theme Style -->
+	<link th:href="@{/css/custom.min.css}" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<!-- left - column - navbar -->
+			<div th:replace="navigation/nav_fragment :: navbar">
+			</div>
+			<!-- left - column - navbar -->
+			
+			<!-- top navigation -->
+			<div th:replace="navigation/nav_fragment :: top_nav">
+			</div>
+			<!-- /top navigation -->
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<div class="">
+					<div class="page-title">
+						<div class="title_left">
+							<h3>User Profile</h3>
+						</div>
+			
+						<div class="title_right">
+							<div class="col-md-5 col-sm-5  form-group pull-right top_search">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Search for...">
+									<span class="input-group-btn">
+										<button class="btn btn-secondary" type="button">Go!</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+			
+					<div class="clearfix"></div>
+			
+					<div class="row">
+						<div class="col-md-12 col-sm-12 ">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>User Report <small>Activity report</small></h2>
+									<ul class="nav navbar-right panel_toolbox">
+										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+										</li>
+										<li class="dropdown">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
+													class="fa fa-wrench"></i></a>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item" href="#">Settings 1</a>
+												<a class="dropdown-item" href="#">Settings 2</a>
+											</div>
+										</li>
+										<li><a class="close-link"><i class="fa fa-close"></i></a>
+										</li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<div class="col-md-3 col-sm-3  profile_left">
+										<div class="profile_img">
+											<div id="crop-avatar">
+												<!-- Current avatar -->
+												<img class="img-responsive avatar-view" src="images/picture.jpg" alt="Avatar"
+													title="Change the avatar">
+											</div>
+										</div>
+										<h3>[[${user.username}]]</h3>
+						
+										<ul class="list-unstyled user_data">
+											<li><i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
+											</li>
+						
+											<li>
+												<i class="fa fa-briefcase user-profile-icon"></i> Software Engineer
+											</li>
+						
+											<li class="m-top-xs">
+												<i class="fa fa-external-link user-profile-icon"></i>
+												<a href="http://www.kimlabs.com/profile/" target="_blank">www.kimlabs.com</a>
+											</li>
+										</ul>
+						
+										<a id="btn_edit" style="display: block; width: 220px;" class="btn btn-success" 
+											onclick="document.getElementById('sec01').style.display='block',
+														document.getElementById('btn_change_pass').style.display='block',
+														document.getElementById('btn_edit').style.display='none',
+														document.getElementById('div01').style.display='none'">
+											<i class="fa fa-edit m-right-xs"></i>Edit Profile
+										</a>
+										<a id="btn_change_pass" style="display: none; width: 220px;" class="btn btn-success" 
+											onclick="document.getElementById('sec01').style.display='none',
+														document.getElementById('btn_change_pass').style.display='none',
+														document.getElementById('btn_edit').style.display='block',
+														document.getElementById('div01').style.display='block'">
+											Change Password
+										</a>	
+										<br />										
+									</div>
+			<!--/ from user-->
+									<br />
+									<div id="div01" style="display: block;">
+									<form th:action="@{/user_profile}" class="form-horizontal form-label-left" th:object="${user}" method="POST">
+										<div class="col-md-9 col-sm-9 ">
+											<div class="profile_title">
+												<div class="col-md-6">
+													<h2>Đổi mật khẩu</h2>
+												</div>											
+											</div>		                      				
+										</div>
+										
+										<label class="control-label col-md-3 col-sm-3"><b>Nhập mật khẩu cũ</b></label>
+										<div class="col-md-9 col-sm-9 ">											
+											<input type="password" style="width: 200px; padding: 5px" 
+													id="old_password" name="old_password" placeholder="Nhập mật khẩu cũ">
+										</div>
+										
+										<label class="control-label col-md-3 col-sm-3 "><b>Nhập mật khẩu mới</b></label>
+										<div class="col-md-9 col-sm-9 ">											
+											<input type="password" style="width: 200px; padding: 5px" id="new_password" name="new_password"
+												 th:field="*{password}" placeholder="Nhập mật khẩu mới">
+										</div>
+										
+										<label class="control-label col-md-3 col-sm-3 "><b>Nhập mật lại khẩu mới</b></label>
+										<div class="col-md-9 col-sm-9 ">											
+											<input type="password" style="width: 200px; padding: 5px" id="confirm_new_password" 
+												name="confirm_new_password" placeholder="Nhập mật lại khẩu mới">
+										</div>
+										
+										<div class="col-md-9 col-sm-9 "><br/>
+											<button type="reset" class="btn btn-round btn-primary">&nbsp; Xóa &nbsp;</button>
+											<button type="submit" class="btn btn-round btn-success">&nbsp; Lưu &nbsp;</button>										
+										</div>
+									</form>
+									</div>
+									<div id="sec01" style="display: none;">										
+										<form th:action="@{/user_profile}" class="form-horizontal form-label-left" th:object="${user}" method="POST">
+										<div class="col-md-9 col-sm-9 ">
+											<div class="profile_title">
+												<div class="col-md-6">
+													<h2>Your Profile </h2>																											
+												</div>
+											</div>		                      				
+										</div>
+										
+										<label class="control-label col-md-3 col-sm-3"><b>Họ</b></label>
+										<div class="col-md-9 col-sm-9 ">											
+											<input type="text" style="width: 200px; padding: 5px" id="last_name" name="last_name" 
+													th:field="*{userProfile.lastName}" placeholder="Họ">
+										</div>
+										
+										<label class="control-label col-md-3 col-sm-3 "><b>Tên</b></label>
+										<div class="col-md-9 col-sm-9 ">											
+											<input type="text" style="width: 200px; padding: 5px" id="first_name" name="first_name"
+												 th:field="*{userProfile.firstName}" placeholder="Tên">
+										</div>
+										
+										<label class="control-label col-md-3 col-sm-3 "><b>Địa chỉ</b></label>
+										<div class="col-md-9 col-sm-9 ">											
+											<input type="text" style="width: 200px; padding: 5px" id="address" name="address"
+												 th:field="*{userProfile.address}" placeholder="Nhập địa chỉ">
+										</div>
+										
+										<label class="control-label col-md-3 col-sm-3 "><b>Email</b></label>
+										<div class="col-md-9 col-sm-9 ">											
+											<input type="email" style="width: 200px; padding: 5px" id="email" name="email"
+												 th:field="*{userProfile.email}" placeholder="Nhập email">
+										</div>
+										
+										<label class="control-label col-md-3 col-sm-3 "><b>Hình đại diện</b></label>
+										<div class="col-md-9 col-sm-9 ">											
+											<input type="file" style="width: 200px; padding: 5px" 
+													 id="imageProfile" name="fileImage" accept="image/*"
+												 	th:field="*{userProfile.photo}" >
+										</div>
+										
+										<div class="col-md-9 col-sm-9 "><br/>
+											<button type="reset" class="btn btn-primary">&nbsp; Xóa &nbsp;</button>
+											<button type="submit" class="btn btn-success">&nbsp; Cập nhật &nbsp;</button>
+										</div>
+									</form>	
+									</div>
+			<!--/ from user-->					
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /page content -->
+
+			<!-- footer content -->
+			<footer>
+				<div class="pull-right">
+					Management Page <a th:href="@{/}">Cellphone Site</a>
+				</div>
+				<div class="clearfix"></div>
+			</footer>
+			<!-- /footer content -->
+		</div>
+	</div>
+	
+	<script>
+	// Get the modal
+	var modal = document.getElementById('sec01');
+	
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
+	</script>
+	<!-- check repassword -->
+	<script>
+		var password = document.getElementById("new_password")
+			, confirm_password = document.getElementById("new_confirm_password");
+	
+		function validatePassword() {
+			if (password.value != confirm_password.value) {
+				confirm_password.setCustomValidity("Passwords Don't Match");
+			} else {
+				confirm_password.setCustomValidity('');
+			}
+		}
+	
+		password.onchange = validatePassword;
+		confirm_password.onkeyup = validatePassword;
+	</script>
+	<!-- check repassword -->
+	<!-- jQuery -->
+	<script src="vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- FastClick -->
+	<script src="vendors/fastclick/lib/fastclick.js"></script>
+	<!-- NProgress -->
+	<script src="vendors/nprogress/nprogress.js"></script>
+	<!-- Chart.js -->
+	<script src="vendors/Chart.js/dist/Chart.min.js"></script>
+	<!-- jQuery Sparklines -->
+	<script src="vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+	<!-- Flot (làm nổi) -->
+	<script src="vendors/Flot/jquery.flot.js"></script>
+	<script src="vendors/Flot/jquery.flot.pie.js"></script>
+	<script src="vendors/Flot/jquery.flot.time.js"></script>
+	<script src="vendors/Flot/jquery.flot.stack.js"></script>
+	<script src="vendors/Flot/jquery.flot.resize.js"></script>
+	<!-- Flot plugins -->
+	<script src="vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+	<script src="vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+	<script src="vendors/flot.curvedlines/curvedLines.js"></script>
+	<!-- DateJS -->
+	<script src="vendors/DateJS/build/date.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="vendors/moment/min/moment.min.js"></script>
+	<script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+	<!-- Custom Theme Scripts -->
+	<script src="js/custom.min.js"></script>
+</body>
+
 </html>

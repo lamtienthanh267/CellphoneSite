@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
 	<title>Navigation Fragment</title>
@@ -24,7 +25,7 @@
 					<div class="profile_info" sec:authorize="isAuthenticated()">
 						<span>Welcome,</span>
 						<a th:href="@{/user_profile}">
-							<h2 sec:authentication="name"></h2>
+							<h2 sec:authentication="name" th:field="username"></h2>
 						</a>
 					</div>
 				</div>
@@ -83,7 +84,11 @@
 					<a data-toggle="tooltip" data-placement="top" title="Lock">
 						<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
 					</a>
-					<a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+					<form th:action="@{/logout}" th:method="post" name="formLogout" hidden="true">
+                          <input type="submit" value="logout">
+                    </form>
+					<a data-toggle="tooltip" data-placement="top" title="Logout" 
+						th:href="@{/login_user}" onclick="document.formLogout.submit()">
 						<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 					</a>
 				</div>

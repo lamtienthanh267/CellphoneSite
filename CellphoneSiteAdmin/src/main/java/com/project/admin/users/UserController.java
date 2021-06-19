@@ -3,6 +3,7 @@ package com.project.admin.users;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,11 +40,6 @@ public class UserController {
 	@GetMapping("/403")
 	public String show403() {
 		return "403";
-	}
-	
-	@GetMapping("/user_profile")
-	public String showUserProfilePage() {
-		return "user_profile";
 	}
 	
 	@GetMapping("/management_page_master")
@@ -118,6 +114,26 @@ public class UserController {
 	public String deleteUser(@PathVariable(name = "id") Integer id) {
 		userService.deleteUser(id);
 		return "redirect:/list_user";
+	}
+	
+	@GetMapping("/user_profile")
+	public String userProfile(Authentication auth ,Model model) {
+
+		User user = userService.getUserByUsername(auth.getName());
+		
+		model.addAttribute("user",user);
+		
+		return "user_profile";
+	}
+	
+	@RequestMapping(value="/user_profile", method = RequestMethod.POST)
+	public String editUserProfile(@ModelAttribute("user") User user) {
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		user.setPassword(encoder.encode(user.getPassword()));
+		userService.addUser(user);			
+		return "redirect:/user_profile";
+
 	}
 }
 
