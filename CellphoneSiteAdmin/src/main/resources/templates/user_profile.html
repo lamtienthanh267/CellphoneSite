@@ -95,23 +95,23 @@
 										<div class="profile_img">
 											<div id="crop-avatar">
 												<!-- Current avatar -->
-												<img class="img-responsive avatar-view" src="images/picture.jpg" alt="Avatar"
-													title="Change the avatar">
+												<img class="img-responsive avatar-view" th:src="@{${user.userProfile.photoPath}}" alt="Avatar"
+														id="thumnail" title="Change the avatar">
 											</div>
 										</div>
-										<h3>[[${user.username}]]</h3>
+										<h3> [[${user.userProfile.lastName}]] [[${user.userProfile.firstName}]]</h3>
 						
 										<ul class="list-unstyled user_data">
-											<li><i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
+											<li><i class="fa fa-map-marker user-profile-icon"></i> [[${user.userProfile.address}]]
 											</li>
 						
 											<li>
-												<i class="fa fa-briefcase user-profile-icon"></i> Software Engineer
+												<i class="fa fa-briefcase user-profile-icon"></i> [[${user.listRole}]]
 											</li>
 						
 											<li class="m-top-xs">
 												<i class="fa fa-external-link user-profile-icon"></i>
-												<a href="http://www.kimlabs.com/profile/" target="_blank">www.kimlabs.com</a>
+												<a href="#" target="_blank">[[${user.userProfile.email}]]</a>
 											</li>
 										</ul>
 						
@@ -131,10 +131,12 @@
 										</a>	
 										<br />										
 									</div>
+									
 			<!--/ from user-->
-									<br />
-									<div id="div01" style="display: block;">
-									<form th:action="@{/user_profile}" class="form-horizontal form-label-left" th:object="${user}" method="POST">
+									<div class="col-md-9 col-sm-9 ">
+									
+									<div id="div01" style="display: block;" >
+									<form th:action="@{/change_password}" class="form-horizontal form-label-left" th:object="${user}" method="POST">
 										<div class="col-md-9 col-sm-9 ">
 											<div class="profile_title">
 												<div class="col-md-6">
@@ -142,20 +144,24 @@
 												</div>											
 											</div>		                      				
 										</div>
-										
-										<label class="control-label col-md-3 col-sm-3"><b>Nhập mật khẩu cũ</b></label>
+										<input type="text" name="id" th:field="*{userId}" hidden="true">
+										<input type="text" name="username" th:field="*{username}" hidden="true">
+										<input type="text" name="role" th:field="*{role}" hidden="true">
+										<input type="text" name="enabled" th:field="*{enabled}" hidden="true">
+										<!--<input type="text" name="enabled" th:field="*{password}" hidden="true">-->
+										<label class="control-label col-md-9 col-sm-9"><b>Nhập mật khẩu cũ</b></label>
 										<div class="col-md-9 col-sm-9 ">											
 											<input type="password" style="width: 200px; padding: 5px" 
-													id="old_password" name="old_password" placeholder="Nhập mật khẩu cũ">
+													 name="password" placeholder="Nhập mật khẩu cũ">
 										</div>
 										
-										<label class="control-label col-md-3 col-sm-3 "><b>Nhập mật khẩu mới</b></label>
+										<label class="control-label col-md-9 col-sm-9 "><b>Nhập mật khẩu mới</b></label>
 										<div class="col-md-9 col-sm-9 ">											
 											<input type="password" style="width: 200px; padding: 5px" id="new_password" name="new_password"
-												 th:field="*{password}" placeholder="Nhập mật khẩu mới">
+												  	placeholder="Nhập mật khẩu mới">
 										</div>
 										
-										<label class="control-label col-md-3 col-sm-3 "><b>Nhập mật lại khẩu mới</b></label>
+										<label class="control-label col-md-9 col-sm-9"><b>Nhập mật lại khẩu mới</b></label>
 										<div class="col-md-9 col-sm-9 ">											
 											<input type="password" style="width: 200px; padding: 5px" id="confirm_new_password" 
 												name="confirm_new_password" placeholder="Nhập mật lại khẩu mới">
@@ -168,7 +174,8 @@
 									</form>
 									</div>
 									<div id="sec01" style="display: none;">										
-										<form th:action="@{/user_profile}" class="form-horizontal form-label-left" th:object="${user}" method="POST">
+										<form th:action="@{/user_profile}" class="form-horizontal form-label-left" 
+												th:object="${user}" method="POST" enctype="multipart/form-data">
 										<div class="col-md-9 col-sm-9 ">
 											<div class="profile_title">
 												<div class="col-md-6">
@@ -176,36 +183,41 @@
 												</div>
 											</div>		                      				
 										</div>
-										
-										<label class="control-label col-md-3 col-sm-3"><b>Họ</b></label>
+										<input type="text" name="username" th:field="*{username}" hidden="true">
+										<input type="text" name="user_id" th:field="*{userProfile.id}" hidden="true">
+										<input type="text" name="id" th:field="*{userId}" hidden="true">
+										<input type="text" hidden="true" name="password" th:field="*{password}">
+										<input type="text" name="role" th:field="*{role}" hidden="true">
+										<input type="text" name="enabled" th:field="*{enabled}" hidden="true">
+													
+										<label class="control-label col-md-9 col-sm-9"><b>Họ</b></label>
 										<div class="col-md-9 col-sm-9 ">											
 											<input type="text" style="width: 200px; padding: 5px" id="last_name" name="last_name" 
 													th:field="*{userProfile.lastName}" placeholder="Họ">
 										</div>
 										
-										<label class="control-label col-md-3 col-sm-3 "><b>Tên</b></label>
+										<label class="control-label col-md-9 col-sm-9"><b>Tên</b></label>
 										<div class="col-md-9 col-sm-9 ">											
 											<input type="text" style="width: 200px; padding: 5px" id="first_name" name="first_name"
 												 th:field="*{userProfile.firstName}" placeholder="Tên">
 										</div>
 										
-										<label class="control-label col-md-3 col-sm-3 "><b>Địa chỉ</b></label>
+										<label class="control-label col-md-9 col-sm-9"><b>Địa chỉ</b></label>
 										<div class="col-md-9 col-sm-9 ">											
 											<input type="text" style="width: 200px; padding: 5px" id="address" name="address"
 												 th:field="*{userProfile.address}" placeholder="Nhập địa chỉ">
 										</div>
 										
-										<label class="control-label col-md-3 col-sm-3 "><b>Email</b></label>
+										<label class="control-label col-md-9 col-sm-9"><b>Email</b></label>
 										<div class="col-md-9 col-sm-9 ">											
 											<input type="email" style="width: 200px; padding: 5px" id="email" name="email"
 												 th:field="*{userProfile.email}" placeholder="Nhập email">
 										</div>
 										
-										<label class="control-label col-md-3 col-sm-3 "><b>Hình đại diện</b></label>
+										<label class="control-label col-md-9 col-sm-9"><b>Hình đại diện</b></label>
 										<div class="col-md-9 col-sm-9 ">											
 											<input type="file" style="width: 200px; padding: 5px" 
-													 id="imageProfile" name="fileImage" accept="image/*"
-												 	th:field="*{userProfile.photo}" >
+													 id="imageProfile" name="fileImage" accept="image/*">
 										</div>
 										
 										<div class="col-md-9 col-sm-9 "><br/>
@@ -213,6 +225,7 @@
 											<button type="submit" class="btn btn-success">&nbsp; Cập nhật &nbsp;</button>
 										</div>
 									</form>	
+									</div>
 									</div>
 			<!--/ from user-->					
 								</div>
@@ -233,7 +246,8 @@
 			<!-- /footer content -->
 		</div>
 	</div>
-	
+
+	<!-- close from edit_profile -->	
 	<script>
 	// Get the modal
 	var modal = document.getElementById('sec01');
@@ -245,6 +259,29 @@
 	    }
 	}
 	</script>
+	<!-- /close from edit_profile -->	
+
+	<!--show image -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#imageProfile").change(function() {
+				readUrl(this);
+			});
+		});
+		
+		function readUrl(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				
+				reader.onload = function(e) {
+					$('#thumnail').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
+	<!--/show image -->
+	
 	<!-- check repassword -->
 	<script>
 		var password = document.getElementById("new_password")
@@ -262,6 +299,7 @@
 		confirm_password.onkeyup = validatePassword;
 	</script>
 	<!-- check repassword -->
+	
 	<!-- jQuery -->
 	<script src="vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->

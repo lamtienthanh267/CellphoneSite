@@ -33,7 +33,7 @@ public class MyUserDetails implements UserDetails  {
 		
 		for(Role role: user.getRole()) {
 			
-			authorities.add(new SimpleGrantedAuthority(role.getRole_name()));
+			authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
 		}
 		
 		return authorities;

@@ -119,7 +119,8 @@
 										<div class="col-md-9 col-sm-9" >
 											<div class="checkbox" th:each="r: ${allRole}">
 												<label>
-													<input type="checkbox" class="flat" name="role" th:field="*{role}"  th:value="${r.id}"  th:check> [[${r.role_name}]]
+													<input type="checkbox" class="flat" name="role" 
+															th:field="*{role}"  th:value="${r.id}"  th:check> [[${r.roleName}]]
 												</label>
 											</div>
 											
@@ -135,7 +136,9 @@
 											</div>
 										</div>
 									</div>
-															
+									
+									<!--<input type="text" name="profile" th:field="*{userProfile}" th:value="${profile.user}" hidden />-->
+																									
 									<div class="ln_solid"></div>
 									<div class="form-group">
 										<div class="col-md-9 col-sm-9  offset-md-3">

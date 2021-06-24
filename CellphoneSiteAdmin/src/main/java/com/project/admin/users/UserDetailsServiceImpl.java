@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		}
 		
 		for(Role role : user.getRole()) {
-			System.out.println("user: "+user.getUsername()+ " has role "+role.getRole_name());
+			System.out.println("user: "+user.getUsername()+ " has role "+role.getRoleName());
 		}
 		
 		return new MyUserDetails(user);

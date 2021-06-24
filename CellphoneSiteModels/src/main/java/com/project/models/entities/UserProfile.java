@@ -1,8 +1,14 @@
 package com.project.models.entities;
 
+import java.beans.Transient;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -11,10 +17,15 @@ import javax.persistence.Table;
 public class UserProfile {
 	
 	@Id
-	@Column(name="user_id")
+	@Column(name="user_id")	
 	private Integer id;
 	
-	@OneToOne(mappedBy = "userProfile")
+//	@OneToOne(mappedBy = "userProfile")
+//	private User user;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@MapsId
+	@JoinColumn(name="user_id")
 	private User user;
 	
 	@Column(name="last_name")
@@ -85,5 +96,13 @@ public class UserProfile {
 		this.address = address;
 	}
 	
-	
+	@Transient
+	public String getPhotoPath() {
+		if (id == null && this.photo == null) {
+			return null;
+		}
+		
+		//return "/profile-photos/" + this.id + "/" + this.photo;
+		return "/profile-photos/" + this.photo;
+	}
 }

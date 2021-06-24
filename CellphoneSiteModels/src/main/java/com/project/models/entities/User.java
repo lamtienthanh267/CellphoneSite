@@ -1,7 +1,9 @@
 package com.project.models.entities;
 
 import java.beans.Transient;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 
@@ -36,8 +39,12 @@ public class User {
 				inverseJoinColumns = @JoinColumn(name="role_id"))
 	private Set<Role> role = new HashSet<>();
 	
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name="user_id", referencedColumnName = "user_id")
+//	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+//	@JoinColumn(name="user_id", referencedColumnName = "user_id")
+//	private UserProfile userProfile;
+	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn
 	private UserProfile userProfile;
 	
 	public Integer getUserId() {
@@ -87,16 +94,15 @@ public class User {
 	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
 	}
-
+	
 	@Transient
-	public String getRoleUser() {
-		String roleUser = "";
+	public List<String> getListRole() {
+		List<String> roleUser = new ArrayList<String>();
 		for (Role r : role) {
 		
-			roleUser += r.getRole_name() +", ";			
+			roleUser.add(r.getRoleName());			
 		}
 		
 		return roleUser ;
 	}
-		
 }
