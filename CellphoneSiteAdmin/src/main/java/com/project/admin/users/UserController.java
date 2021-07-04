@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.admin.role.RoleService;
-import com.project.admin.users.profile.UserProfileService;
 import com.project.library.helpers.FileUploadHelper;
 import com.project.models.entities.Role;
 import com.project.models.entities.User;
@@ -92,10 +94,48 @@ public class UserController {
 		return "403";
 	}
 	
+//	@GetMapping("/list_user")
+//	public String showListUser(Model model) {
+//		List<User> allUser = userService.getAllUser();
+//		model.addAttribute("allUser", allUser);
+//		return "list_user";
+//	}
+	
 	@GetMapping("/list_user")
 	public String showListUser(Model model) {
-		List<User> allUser = userService.getAllUser();
+		return showListUser(model, 1, null, null);
+	}
+	
+	@GetMapping("/list_user/{pageNum}")
+	public String showListUser(Model model, @PathVariable(name = "pageNum") int pageNum,
+								@Param("sortBy") String sortBy, @Param("sortDirection") String sortDirection) {
+		String direction = "asc";
+		if(sortDirection != null && sortDirection.equals("asc")) {
+			direction = "desc";
+		}
+		if(sortBy == null) {
+			sortBy = "userId";
+		}
+		
+		Page<User> page = userService.getAllUser(pageNum, sortBy, direction);
+		List<User> allUser = page.getContent();
+		
+		int startCount = (pageNum - 1) * UserService.PAGE_SIZE + 1;
+		int endCount = startCount + UserService.PAGE_SIZE - 1;
+		
+		if(endCount > page.getTotalElements()) {
+			endCount = (int) page.getTotalElements();
+		}
+		
 		model.addAttribute("allUser", allUser);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("curentPage", pageNum);
+		model.addAttribute("startCount", startCount);
+		model.addAttribute("endCount", endCount);
+		//sort
+		model.addAttribute("direction", direction);
+		model.addAttribute("sortBy", sortBy);
 		return "list_user";
 	}
 	
@@ -139,7 +179,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/user_profile", method = RequestMethod.POST)
-	public String editUserProfile(@ModelAttribute("user") User user, @RequestParam("old_password") String oldPassword,
+	public String editUserProfile(@ModelAttribute("user") User user,
 									@RequestParam("fileImage") MultipartFile multipartFile) {
 		
 		//System.out.println("user id: "+user.getUserId());
@@ -163,19 +203,28 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/change_password", method = RequestMethod.POST)
-	public String changeUserPassword(@ModelAttribute("user") User user, @RequestParam("new_password") String newPassword){
+	public String changeUserPassword(@ModelAttribute("user") User user,
+										RedirectAttributes redirectAttributes,
+										@RequestParam("new_password") String newPassword){
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		user.setPassword(encoder.encode(user.getPassword()));
 		
 		System.out.println("user pass: "+user.getPassword());
+		System.out.println("user pass encode: "+encoder.encode(user.getPassword()));
 		
 		User userDB = userService.getUserById(user.getUserId());
-		
-		if(user.getPassword().equalsIgnoreCase(userDB.getPassword())) {
+		System.out.println("user db: "+userDB.getPassword());
+		if(encoder.matches(user.getPassword(), userDB.getPassword())) {
 			user.setPassword(encoder.encode(newPassword));
 			
 			userService.addUser(user);
+			System.out.println("doi password thanh cong ");
+
+		}else {
+			redirectAttributes.addFlashAttribute("error","doi password khong thanh cong");
+		
+			System.out.println("doi password khong thanh cong ");
+			return "redirect:/user_profile/";
 		}		
 			
 	

@@ -53,6 +53,7 @@
 					<div class="page-title">
 						<div class="title_left">
 							<h3>User Profile</h3>
+							<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
 						</div>
 			
 						<div class="title_right">
@@ -149,10 +150,11 @@
 										<input type="text" name="role" th:field="*{role}" hidden="true">
 										<input type="text" name="enabled" th:field="*{enabled}" hidden="true">
 										<!--<input type="text" name="enabled" th:field="*{password}" hidden="true">-->
+										
 										<label class="control-label col-md-9 col-sm-9"><b>Nhập mật khẩu cũ</b></label>
 										<div class="col-md-9 col-sm-9 ">											
-											<input type="password" style="width: 200px; padding: 5px" 
-													 name="password" placeholder="Nhập mật khẩu cũ">
+											<input type="password" style="width: 200px; padding: 5px" id="password"
+													 name="password" placeholder="Nhập mật khẩu cũ" required>
 										</div>
 										
 										<label class="control-label col-md-9 col-sm-9 "><b>Nhập mật khẩu mới</b></label>
@@ -163,8 +165,8 @@
 										
 										<label class="control-label col-md-9 col-sm-9"><b>Nhập mật lại khẩu mới</b></label>
 										<div class="col-md-9 col-sm-9 ">											
-											<input type="password" style="width: 200px; padding: 5px" id="confirm_new_password" 
-												name="confirm_new_password" placeholder="Nhập mật lại khẩu mới">
+											<input type="password" style="width: 200px; padding: 5px" id="confirm_password" 
+												name="confirm_password" placeholder="Nhập mật lại khẩu mới">
 										</div>
 										
 										<div class="col-md-9 col-sm-9 "><br/>
@@ -172,6 +174,7 @@
 											<button type="submit" class="btn btn-round btn-success">&nbsp; Lưu &nbsp;</button>										
 										</div>
 									</form>
+									
 									</div>
 									<div id="sec01" style="display: none;">										
 										<form th:action="@{/user_profile}" class="form-horizontal form-label-left" 
@@ -284,20 +287,20 @@
 	
 	<!-- check repassword -->
 	<script>
-		var password = document.getElementById("new_password")
-			, confirm_password = document.getElementById("new_confirm_password");
 	
+		var new_password = document.getElementById("new_password")			
+			, confirm_password = document.getElementById("confirm_password");			
 		function validatePassword() {
-			if (password.value != confirm_password.value) {
+			if (new_password.value != confirm_password.value) {
 				confirm_password.setCustomValidity("Passwords Don't Match");
 			} else {
-				confirm_password.setCustomValidity('');
+				confirm_password.setCustomValidity('');				
 			}
 		}
-	
-		password.onchange = validatePassword;
+		new_password.onchange = validatePassword;
 		confirm_password.onkeyup = validatePassword;
-	</script>
+		
+	</script>	
 	<!-- check repassword -->
 	
 	<!-- jQuery -->

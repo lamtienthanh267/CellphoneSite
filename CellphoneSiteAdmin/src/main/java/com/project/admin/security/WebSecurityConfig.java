@@ -61,6 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.loginProcessingUrl("/dologin")
 		.successHandler(new OnAuthenticationSuccessHandler())
 		.failureHandler(new OnAuthenticationFailureHandler())
+		.and().rememberMe().key("cellphoneSite").tokenValiditySeconds(3600)
 		.and().logout().permitAll()
 		.and().exceptionHandling().accessDeniedPage("/403");
 	}
