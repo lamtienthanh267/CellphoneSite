@@ -116,11 +116,11 @@
 														<tr>
 															<th>
 																<a th:href="@{'/list_user/'+${curentPage} + '?sortBy=userId&sortDirection=' + ${direction}}">ID</a>
-																<span th:if="${sortBy == 'userId'}" th:class="${direction == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+																<span th:if="${sortBy == 'userId'}" th:class="${direction == 'asc' ? 'fa fa-sort-up' : ' fa fa-sort-down'}"></span>
 															</th>
 															<th>
 																<a th:href="@{'/list_user/' +${curentPage} + '?sortBy=username&sortDirection='+${direction}}">Username</a>
-																<span th:if="${sortBy == 'username'}" th:class="${direction == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+																<span th:if="${sortBy == 'username'}" th:class="${direction == 'asc' ? 'fa fa-sort-up' : 'fa fa-sort-down'}"></span>
 															</th>
 															<th>
 																Role
