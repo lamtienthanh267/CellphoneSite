@@ -2,10 +2,8 @@ package com.project.models.entities;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="product_type")
+@Table(name="category")
 public class Category {
 	
 	@Id
@@ -23,10 +21,13 @@ public class Category {
 	@Column(name="name")
 	private String categoryName;
 	
-	private String code;
+	private Boolean enabled;
+	
+	@Column(name="parent_id")
+	private Integer parentId;
 	
 	@OneToMany(mappedBy = "category")
-	private Set<Product> productList;
+	private Set<Product> products;
 	
 	public Integer getId() {
 		return id;
@@ -44,21 +45,28 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 
-	public String getCode() {
-		return code;
+	public Set<Product> getProducts() {
+		return products;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setProducts(Set<Product> products) {
+		this.products = products;
 	}
 
-	public Set<Product> getProductList() {
-		return productList;
+	public Boolean getEnabled() {
+		return enabled;
 	}
 
-	public void setProductList(Set<Product> productList) {
-		this.productList = productList;
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
-	
+
+	public Integer getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
 	
 }

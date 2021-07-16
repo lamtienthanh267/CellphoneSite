@@ -1,6 +1,6 @@
 package com.project.models.entities;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -26,7 +26,7 @@ public class Product {
 	@Column(name="code")
 	private String productCode;
 	
-	private String desciption;
+	private String description;
 	
 	@Column(name="descrip_details")
 	private String descriptionDetails;
@@ -55,11 +55,12 @@ public class Product {
 	@Column(name="total_amount")
 	private Integer totalAmount;
 	
-	@Column(name="brand_id")
-	private Integer brandId;
+	@ManyToOne
+	@JoinColumn(name="brand_id")
+	private Brand brand;
 	
 	@ManyToOne
-	@JoinColumn(name="product_type_id",nullable = false)
+	@JoinColumn(name="category_id")
 	private Category category;
 
 	public Integer getProductId() {
@@ -86,12 +87,12 @@ public class Product {
 		this.productCode = productCode;
 	}
 
-	public String getDesciption() {
-		return desciption;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDesciption(String desciption) {
-		this.desciption = desciption;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getDescriptionDetails() {
@@ -150,14 +151,6 @@ public class Product {
 		this.totalAmount = totalAmount;
 	}
 
-	public Integer getBrandId() {
-		return brandId;
-	}
-
-	public void setBrandId(Integer brandId) {
-		this.brandId = brandId;
-	}
-
 	public Category getCategory() {
 		return category;
 	}
@@ -188,6 +181,14 @@ public class Product {
 
 	public void setImage(Set<ProductImage> image) {
 		this.image = image;
+	}
+
+	public Brand getBrand() {
+		return brand;
+	}
+
+	public void setBrand(Brand brand) {
+		this.brand = brand;
 	}
 		
 }
