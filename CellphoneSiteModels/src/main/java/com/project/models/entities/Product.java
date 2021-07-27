@@ -66,6 +66,9 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name="category_id")
 	private Category category;
+	
+	@OneToMany(mappedBy = "product")
+	private Set<OrderDetails> oderDetails;
 
 	public Integer getProductId() {
 		return productId;
@@ -195,6 +198,14 @@ public class Product {
 		this.brand = brand;
 	}
 	
+	public Set<OrderDetails> getOderDetails() {
+		return oderDetails;
+	}
+
+	public void setOderDetails(Set<OrderDetails> oderDetails) {
+		this.oderDetails = oderDetails;
+	}
+
 	@Transactional
 	public List<ProductImage> getPhotoName(){
 		List<ProductImage> list = new ArrayList<>();

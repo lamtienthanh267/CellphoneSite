@@ -7,21 +7,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.transaction.Transactional;
+import javax.persistence.Table;
 
 @Entity
-public class ProductImage {
+@Table(name="order_details")
+public class OrderDetails {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name="file")
-	private String fileName;
+	private Integer amount;
+	
+	@Column(name="unit_price")
+	private Double unitPrice;
 	
 	@ManyToOne
 	@JoinColumn(name="product_id")
 	private Product product;
+	
+	@ManyToOne
+	@JoinColumn(name="order_id")
+	private Order order;
 
 	public Integer getId() {
 		return id;
@@ -31,12 +38,20 @@ public class ProductImage {
 		this.id = id;
 	}
 
-	public String getFileName() {
-		return fileName;
+	public Integer getAmount() {
+		return amount;
 	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
+	public Double getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(Double unitPrice) {
+		this.unitPrice = unitPrice;
 	}
 
 	public Product getProduct() {
@@ -46,10 +61,13 @@ public class ProductImage {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-	
-	@Transactional
-	public String getPhoto() {
-		
-		return "/product-images/" + this.product.getProductId() + "/" + this.fileName;
+
+	public Order getOrder() {
+		return order;
 	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+	
 }
