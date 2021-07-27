@@ -14,4 +14,5 @@ public class ProductImageService {
 	public ProductImage saveImage (ProductImage image) {
 		 return repo.save(image);
 	}
+
 }

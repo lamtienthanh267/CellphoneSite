@@ -143,6 +143,7 @@ public class UserController {
 	public ModelAndView doEditUser(@PathVariable(name="id") Integer id) {
 		List<Role> allRole = roleService.getAllRole();
 		User user = userService.getUserById(id);
+		
 		System.out.println("edit user: "+user.getUsername());
 		ModelAndView modelAndView = new ModelAndView("edit_user");
 		
@@ -172,7 +173,7 @@ public class UserController {
 	public String userProfile(Authentication auth ,Model model) {
 
 		User user = userService.getUserByUsername(auth.getName());
-		
+		System.out.println("avatar user: "+user.getUserProfile().getPhotoPath());
 		model.addAttribute("user",user);
 		
 		return "user_profile";

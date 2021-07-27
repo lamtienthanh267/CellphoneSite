@@ -50,8 +50,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers("/", "/register", "/css/**", "/login_error", "/403", "/management_page_master", "/add_user",
-				"/list_user", "/login_user", "/edit_user", "/add_new_product", "user_profile",
-				"/images/**", "/js/**", "/libs/**", "/vendors/**", "/src/**")
+				"/list_user", "/login_user", "/edit_user", "/add_new_product", "user_profile","/list_product",
+				"/edit_product",
+				"/images/**", "/js/**", "/libs/**", "/vendors/**", "/src/**","/product-images/**")
 		.permitAll()
 		.antMatchers("/add_user","/edit_user", "/delete_user").hasAnyAuthority("admin")
 		.anyRequest().authenticated()

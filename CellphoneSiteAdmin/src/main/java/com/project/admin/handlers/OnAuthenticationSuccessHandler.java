@@ -20,6 +20,6 @@ public class OnAuthenticationSuccessHandler implements AuthenticationSuccessHand
 		String username = authentication.getName();
 		System.out.println("xin chao: "+username);
 		
-		response.sendRedirect("/cellphonesite/management_page_master");
+		response.sendRedirect("/cellphonesite/user_profile");
 	}
 }

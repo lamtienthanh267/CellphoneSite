@@ -21,13 +21,13 @@
 	<!-- iCheck -->
 	<link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
 	<!-- bootstrap-wysiwyg -->
-	<link href="vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+	<link th:href="@{/vendors/google-code-prettify/bin/prettify.min.css}" rel="stylesheet">
 	<!-- Select2 -->
-	<link href="vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+	<link th:href="@{/vendors/select2/dist/css/select2.min.css}" rel="stylesheet">
 	<!-- Switchery -->
-	<link href="vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+	<link th:href="@{/vendors/switchery/dist/switchery.min.css}" rel="stylesheet">
 	<!-- starrr -->
-	<link href="vendors/starrr/dist/starrr.css" rel="stylesheet">
+	<link th:href="@{/vendors/starrr/dist/starrr.css}" rel="stylesheet">
 	<!-- bootstrap-daterangepicker -->
 	<link th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
 	
@@ -62,7 +62,7 @@
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Nhập thông tin sản phẩm <small>sub title</small></h2>
+									<h2>Nhập thông tin sản phẩm <small>edit</small></h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 										</li>
@@ -80,15 +80,17 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" th:action="@{add_new_product}" method="post" th:object="${product}"
+									<form class="" th:action="@{/edit_product}" method="POST" th:object="${product}"
 											enctype="multipart/form-data">
-										
+										<input class="form-control" type="text" name="productId" th:field="*{productId}" hidden="true"/>
+										<input class="form-control" type="text" name="dateCreate" th:field="*{dateCreate}" hidden="true"/>	
 										<span class="section">Sản phẩm</span>
+										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tên sản phẩm<span
 													class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="productName" type="text" required="required" th:field="*{productName}"/>												
+												<input class="form-control" name="productName" type="text" th:field="*{productName}"/>												
 											</div>
 										</div>
 										<div class="field item form-group">
@@ -193,9 +195,9 @@
 											
 											<label class="col-form-label col-md-3 col-sm-3 label-align">Hình sản phẩm</label>										
 											<div class="col-md-9 col-sm-9">
-												<div style="width: auto; border: outset; float: left;">													
+												<div style="width: auto; border: outset; float: left;" >													
 													<p>
-													<img alt="Hình 1" id="thumbnail0"/></p>
+													<img alt="Hình 1" id="thumbnail0" /></p>
 																<br/>
 													<p>			
 													<input type="file" name="productImage" id="productImage" accept="image/*" /></p>		
@@ -287,37 +289,37 @@
 	</script>
 	<!--/show productImage -->
 	<!-- jQuery -->
-	<script src="vendors/jquery/dist/jquery.min.js"></script>
+	<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
 	<!-- Bootstrap -->
-	<script src="vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 	<!-- FastClick -->
-	<script src="vendors/fastclick/lib/fastclick.js"></script>
+	<script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
 	<!-- NProgress -->
-	<script src="vendors/nprogress/nprogress.js"></script>
+	<script th:src="@{/vendors/nprogress/nprogress.js}"></script>
 	<!-- iCheck -->
-	<script src="vendors/iCheck/icheck.min.js"></script>
+	<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
 	<!-- Chart.js -->
-	<script src="vendors/Chart.js/dist/Chart.min.js"></script>
+	<script th:src="@{/vendors/Chart.js/dist/Chart.min.js}"></script>
 	<!-- jQuery Sparklines -->
-	<script src="vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+	<script th:src="@{/vendors/jquery-sparkline/dist/jquery.sparkline.min.js}"></script>
 	<!-- Flot (làm nổi) -->
-	<script src="vendors/Flot/jquery.flot.js"></script>
-	<script src="vendors/Flot/jquery.flot.pie.js"></script>
-	<script src="vendors/Flot/jquery.flot.time.js"></script>
-	<script src="vendors/Flot/jquery.flot.stack.js"></script>
-	<script src="vendors/Flot/jquery.flot.resize.js"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.pie.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.time.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.stack.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.resize.js}"></script>
 	<!-- Flot plugins -->
-	<script src="vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-	<script src="vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-	<script src="vendors/flot.curvedlines/curvedLines.js"></script>
+	<script th:src="@{/vendors/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
+	<script th:src="@{/vendors/flot-spline/js/jquery.flot.spline.min.js}"></script>
+	<script th:src="@{/vendors/flot.curvedlines/curvedLines.js}"></script>
 	<!-- DateJS -->
-	<script src="vendors/DateJS/build/date.js"></script>
+	<script th:src="@{/vendors/DateJS/build/date.js}"></script>
 	<!-- bootstrap-daterangepicker -->
-	<script src="vendors/moment/min/moment.min.js"></script>
-	<script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script th:src="@{/vendors/moment/min/moment.min.js}"></script>
+	<script th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
 
 	<!-- Custom Theme Scripts -->
-	<script src="js/custom.min.js"></script>
+	<script th:src="@{/js/custom.min.js}"></script>
 </body>
 
 </html>

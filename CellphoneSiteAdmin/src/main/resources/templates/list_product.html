@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi"  xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Management page</title>
+
+	<!-- Bootstrap -->
+	<link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+	<!-- NProgress -->
+	<link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+	<!-- iCheck -->
+	<link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+	<!-- bootstrap-wysiwyg -->
+	<link th:href="@{/vendors/google-code-prettify/bin/prettify.min.css}" rel="stylesheet">
+	<!-- Select2 -->
+	<link th:href="@{/vendors/select2/dist/css/select2.min.css}" rel="stylesheet">
+	<!-- Switchery -->
+	<link th:href="@{/vendors/switchery/dist/switchery.min.css}" rel="stylesheet">
+	<!-- starrr -->
+	<link th:href="@{/vendors/starrr/dist/starrr.css}" rel="stylesheet">
+	<!-- bootstrap-daterangepicker -->
+	<link th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
+
+	<!-- Custom Theme Style -->
+	<link th:href="@{/css/custom.min.css}" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<!-- left - column - navbar -->
+			<div th:replace="navigation/nav_fragment :: navbar">
+			</div>
+			<!-- left - column - navbar -->
+			
+			<!-- top navigation -->
+			<div th:replace="navigation/nav_fragment :: top_nav">
+			</div>
+			<!-- /top navigation -->
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<div class="col-md-12 col-sm-12  ">
+					<div class="x_panel">
+						<div class="x_title">
+							<h2>Danh sách sản phẩm</h2>
+							<ul class="nav navbar-right panel_toolbox">
+								<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+								</li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+										aria-expanded="false"><i class="fa fa-wrench"></i></a>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<a class="dropdown-item" href="#">Settings 1</a>
+										<a class="dropdown-item" href="#">Settings 2</a>
+									</div>
+								</li>
+								<li><a class="close-link"><i class="fa fa-close"></i></a>
+								</li>
+							</ul>
+							<div class="clearfix"></div>
+						</div>
+			
+						<div class="x_content">
+							<div class="table-responsive">
+								<table class="table table-striped jambo_table bulk_action">
+									<thead>
+										<tr class="headings">
+											
+											<th class="column-title">
+												<a style="color: white;" th:href="@{'/list_product/'+ ${curentPage} + '?sortBy=productId&sortDirection=' + ${direction}}">
+															ID
+												</a>
+												<span th:if="${sortBy == 'productId'}" th:class="${direction == 'asc' ? 'fa fa-sort-up' : 'fa fa-sort-down'}"></span>
+											</th>
+											<th class="column-title"> 
+												<a style="color: white;" th:href="@{'/list_product/' + ${curentPage} + '?sortBy=productName&sortDirection=' + ${direction}}">
+															Tên sản phẩm
+												</a>
+												<span th:if="${sortBy == 'productName'}" th:class="${direction == 'asc' ? 'fa fa-sort-up' : 'fa fa-sort-down'}"></span>
+											</th>
+											<th class="column-title">Mô tả </th>
+											<th class="column-title">
+														
+												<a style="color: white;" th:href="@{'/list_product/' + ${curentPage} + '?sortBy=brand.name&sortDirection=' + ${direction}}">
+															Hãng
+												</a>
+												<span th:if="${sortBy == 'brand.name'}" th:class="${direction == 'asc' ? 'fa fa-sort-up' : 'fa fa-sort-down'}"></span> 
+											</th>
+											<th class="column-title">Loại sản phẩm </th>
+											<th class="column-title">Giá </th>
+											<th class="column-title no-link last"><span class="nobr">Tùy chọn</span>
+											</th>
+											
+										</tr>
+									</thead>
+			
+									<tbody>
+										<tr class="even pointer" th:each="product : ${AllProducts}">
+											
+											<td class=" ">[[${product.productId}]]</td>
+											<td class=" ">[[${product.productName}]]</td>
+											<td class=" ">
+												[[${product.description}]]
+											</td>											
+											<td class=" ">[[${product.brand.name}]]</td>
+											<td class=" ">[[${product.category.categoryName}]]</td>
+											<td class="a-right a-right ">[[${product.price}]]</td>
+											<td class=" last">
+												<a th:href="@{/edit_product/{id}(id=${product.productId})}">
+													<i class="fa fa-pencil-square-o" title="chỉnh sửa"></i>
+												</a> &nbsp;
+												<a th:href="@{/delete_product/{id}(id=${product.productId})}">
+													<i class="glyphicon glyphicon-trash" title="xóa"></i>
+												</a>
+											</td>
+										</tr>		
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /page content -->
+
+			<!-- footer content -->
+			<footer>
+				<div class="pull-right">
+					Management Page <a th:href="@{/}">Cellphone Site</a>
+				</div>
+				<div class="clearfix"></div>
+			</footer>
+			<!-- /footer content -->
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+	<!-- Bootstrap -->
+	<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+	<!-- FastClick -->
+	<script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+	<!-- NProgress -->
+	<script th:src="@{/vendors/nprogress/nprogress.js}"></script>
+	<!-- iCheck -->
+	<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+	<!-- Chart.js -->
+	<script th:src="@{/vendors/Chart.js/dist/Chart.min.js}"></script>
+	<!-- jQuery Sparklines -->
+	<script th:src="@{/vendors/jquery-sparkline/dist/jquery.sparkline.min.js}"></script>
+	<!-- Flot (làm nổi) -->
+	<script th:src="@{/vendors/Flot/jquery.flot.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.pie.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.time.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.stack.js}"></script>
+	<script th:src="@{/endors/Flot/jquery.flot.resize.js}"></script>
+	<!-- Flot plugins -->
+	<script th:src="@{/vendors/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
+	<script th:src="@{/vendors/flot-spline/js/jquery.flot.spline.min.js}"></script>
+	<script th:src="@{/vendors/flot.curvedlines/curvedLines.js}"></script>
+	<!-- DateJS -->
+	<script th:src="@{/vendors/DateJS/build/date.js}"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script th:src="@{/vendors/moment/min/moment.min.js}"></script>
+	<scriptth:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
+
+	<!-- Custom Theme Scripts -->
+	<script th:src="@{/js/custom.min.js}"></script>
+</body>
+
+</html>

@@ -2,11 +2,13 @@ package com.project.models.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.transaction.Transactional;
 
 @Entity
 public class ProductImage {
@@ -46,5 +48,9 @@ public class ProductImage {
 		this.product = product;
 	}
 	
-	
+	@Transactional
+	public String getPhoto() {
+		
+		return "/product-images/" + this.product.getProductId() + "/" + this.fileName;
+	}
 }

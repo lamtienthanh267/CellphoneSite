@@ -1,16 +1,20 @@
 package com.project.models.entities;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.transaction.Transactional;
 
 @Entity
 public class Product {
@@ -49,7 +53,7 @@ public class Product {
 	@Column(name="price_competitive")
 	private Float priceCompetitive;
 	
-	@OneToMany(mappedBy = "product")
+	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
 	private Set<ProductImage> image;
 	
 	@Column(name="total_amount")
@@ -190,5 +194,13 @@ public class Product {
 	public void setBrand(Brand brand) {
 		this.brand = brand;
 	}
-		
+	
+	@Transactional
+	public List<ProductImage> getPhotoName(){
+		List<ProductImage> list = new ArrayList<>();
+		for (ProductImage productImage : image) {
+			list.add(productImage);
+		}
+		return list;
+	}
 }
