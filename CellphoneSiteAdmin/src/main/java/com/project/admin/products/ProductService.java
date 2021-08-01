@@ -15,6 +15,7 @@ import com.project.models.entities.Product;
 public class ProductService {
 	
 	public static int PAGE_SIZE = 10;
+	
 	@Autowired
 	private ProductRepository productRepository;
 	

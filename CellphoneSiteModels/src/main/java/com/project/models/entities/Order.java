@@ -18,7 +18,7 @@ import com.project.appenum.PaymentMethod;
 import com.project.appenum.StatusOrder;
 
 @Entity
-@Table(name="order")
+@Table(name="orders")
 public class Order {
 	
 	@Id

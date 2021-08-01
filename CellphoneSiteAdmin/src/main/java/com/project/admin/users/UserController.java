@@ -51,11 +51,13 @@ public class UserController {
 		return "403";
 	}
 	
-	@GetMapping("/management_page_master")
-	public String managerPageView() {
-		
-		return "management_page_master";
-	}
+//	@GetMapping("/nav_fragment")
+//	public String managerPageView(Authentication auth ,Model model) {
+//		User user = userService.getUserByUsername(auth.getName());
+//		
+//		model.addAttribute("user",user);
+//		return "nav_fragment";
+//	}
 	
 	@Autowired
 	private RoleService roleService;
@@ -173,7 +175,7 @@ public class UserController {
 	public String userProfile(Authentication auth ,Model model) {
 
 		User user = userService.getUserByUsername(auth.getName());
-		System.out.println("avatar user: "+user.getUserProfile().getPhotoPath());
+		
 		model.addAttribute("user",user);
 		
 		return "user_profile";

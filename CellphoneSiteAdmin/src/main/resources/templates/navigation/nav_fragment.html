@@ -40,7 +40,7 @@
 						<ul class="nav side-menu">
 							<li><a><i class="fa fa-home"></i>Quản lý hóa đơn<span class="fa fa-chevron-down"></span></a>
 								<ul class="nav child_menu">
-									<li><a href="index.html">Dashboard</a></li>
+									<li><a th:href="@{/order_list}">Danh sách đơn hàng</a></li>
 									<li><a href="index2.html">Dashboard2</a></li>
 									<li><a href="index3.html">Dashboard3</a></li>
 								</ul>
@@ -108,7 +108,7 @@
 						<li class="nav-item dropdown open" style="padding-left: 15px;">
 							<a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
 								data-toggle="dropdown" aria-expanded="false">
-								<img src="images/img.jpg" alt="">John Doe
+								<img th:src="@{${user.userProfile.photoPath}}" alt="">John Doe
 							</a>
 							<div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="javascript:;"> Profile</a>
@@ -131,7 +131,7 @@
 							<ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
 								<li class="nav-item">
 									<a class="dropdown-item">
-										<span class="image"><img th:src="@{${user.userProfile.photoPath}}" alt="Profile Image" /></span>
+										<span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
 										<span>
 											<span>John Smith</span>
 											<span class="time">3 mins ago</span>

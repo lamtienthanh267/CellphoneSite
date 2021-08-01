@@ -108,7 +108,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/list_product/{pageNum}")
-	public String showListProduct(Model model, @PathVariable(name = "pageNum") int pageNum,
+	public String showListProduct(Model model, @PathVariable(name = "pageNum") int pageNum, Authentication auth,
 									@Param("sortBy") String sortBy, @Param("sortDirection") String sortDirection) {
 		String direction = "asc";
 		if(sortDirection != null && sortDirection.equals("asc")) {
@@ -120,7 +120,9 @@ public class ProductController {
 		
 		Page<Product> page = productService.getAllProduct(pageNum, sortBy, direction);
 		List<Product> AllProducts = page.getContent();
+		User user = userService.getUserByUsername(auth.getName());
 		
+		model.addAttribute("user",user);
 		model.addAttribute("AllProducts", AllProducts);
 		model.addAttribute("direction", direction);
 		model.addAttribute("sortBy", sortBy);
@@ -141,18 +143,21 @@ public class ProductController {
 	}
 	
 	@GetMapping("/list_product")
-	public String showListProduct(Model model) {
-		return showListProduct(model, 1, null, null);
+	public String showListProduct(Model model, Authentication auth) {
+		
+		return showListProduct(model, 1, auth, null, null);
 	}
 	
 	@RequestMapping("/edit_product/{id}")
-	public ModelAndView editProduct(@PathVariable(name="id") Integer id) {
+	public ModelAndView editProduct(@PathVariable(name="id") Integer id, Authentication auth) {
 		Product product = productService.getProductById(id);
 		List<Category> allCategory = categoryService.getAllCategory();
 		List<Brand> allBrand = brandService.getAllBrand();
 		List<ProductImage> allPhotos = product.getPhotoName();
-		
+		User user = userService.getUserByUsername(auth.getName());
+				
 		ModelAndView modelAndView = new ModelAndView("edit_product");
+		modelAndView.addObject("user",user);
 		modelAndView.addObject("product", product);
 		modelAndView.addObject("allBrand", allBrand);
 		modelAndView.addObject("allCategory", allCategory);
