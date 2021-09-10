@@ -53,7 +53,7 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Form Product</h3>
+							<h3>Form Order</h3>
 						</div>			
 					</div>
 					<div class="clearfix"></div>
@@ -62,7 +62,7 @@
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Nhập thông tin sản phẩm <small>Edit</small></h2>
+									<h2>Thông tin hóa đơn</h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 										</li>
@@ -80,170 +80,117 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" th:action="@{/edit_product}" method="POST" th:object="${product}"
+									<form class="" th:action="@{/edit_order}" method="POST" th:object="${order}"
 											enctype="multipart/form-data">
-										<input class="form-control" type="text" name="productId" th:field="*{productId}" hidden="true"/>
-										<input class="form-control" type="text" name="dateCreate" th:field="*{dateCreate}" hidden="true"/>	
+										<input class="form-control" type="text" name="id" th:field="*{id}" hidden="true"/>
+											
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Ngày lập<span
+													class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" type="text" name="dateCreate" th:field="*{dateCreate}" readonly="true"/>											
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Tên người mua<span
+													class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" name="name" type="text" th:field="*{name}"/>												
+											</div>
+										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tên sản phẩm<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Liên hệ<span
 													class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="productName" type="text" th:field="*{productName}"/>												
+												<input class="form-control" name="phoneNumber" type="text" th:field="*{phoneNumber}"/>
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Mã sản phẩm<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Địa chỉ<span
 													class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="productCode" type="text" th:field="*{productCode}" />													 
+												<input class="form-control" type="text"  name="addressDelivery" th:field="*{addressDelivery}" />
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Mô tả<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Email<span
 													class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="description" type="text" th:field="*{description}"/>
+												<input class="form-control" type="text"  name="email" th:field="*{email}" />
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Giá sản phẩm<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Ghi chú<span
 													class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text"  name="price" required='required'th:field="*{price}" />
-											</div>
+												<textarea class="form-control" name='note' th:field="*{note}"></textarea></div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Giá cạnh tranh<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Phí giao hàng<span
 													class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text"  name="priceCompetitive" th:field="*{priceCompetitive}" />
+												<input class="form-control" name="shipPrice" type="text" th:field="*{shipPrice}"/>												
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Category<span>*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Giảm giá<span
+													class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<select class="form-control" th:field="*{category}" name="category">
-													<option  th:each="ctg : ${allCategory}" 
-															 th:value="${ctg.id}">
-															[[${ctg.categoryName}]]
-													</option>													
-												</select>										
+												<input class="form-control" name="discount" type="text" th:field="*{discount}" />													 
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Hãng<span>*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">VAT<span
+													class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<select class="form-control" th:field="*{brand}" name="brand">
-													<option  th:each="br : ${allBrand}" 
-															 th:value="${br.id}">
-															[[${br.name}]]
-													</option>													
-												</select>											
+												<input class="form-control" name="vat" type="text" th:field="*{vat}" />													 
 											</div>
-										</div>											
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Tổng tiền<span
+													class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" name="payment" type="text" th:field="*{payment}"/>	
+												<label>Phương thức thành toán: [[${order.paymentMethod}]]</label>											
+											</div>
 										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Số lượng<span
-													class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text" name="total_amount" th:field="*{totalAmount}" required='required'/>
-											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">Mô tả chi tiết<span>*</span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<textarea class="form-control" name='description_details' th:field="*{descriptionDetails}"></textarea></div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">Sản phẩm nổi bật</label>
-											<div class="col-md-9 col-sm-9">
-												<div class="checkbox">
-													<label>
-														<input type="checkbox" class="flat" name="featured"
-																th:field="*{featured}" th:value="true" th:check />
-													</label>												
-												</div>											
-											</div>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">Trạng thái đơn hàng</label>										
+											<div class="col-md-6 col-sm-6" >
 											
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">Sản phẩm mới nhất</label>										
-											<div class="col-md-9 col-sm-9">
 												<div class="checkbox" >
 													<label>
-														<input type="checkbox" class="flat" name="newest" 
-																th:field="*{newest}" th:value="true" th:check>
+														<input type="radio" class="flat" id="status" 
+																th:field="*{status}" th:value="PROCESSING" th:check> PROCESSING
 													</label>
-												</div>										
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">Sản phẩm bán chạy</label>										
-											<div class="col-md-9 col-sm-9">
+													
+													
+												</div>
 												<div class="checkbox" >
 													<label>
-														<input type="checkbox" class="flat" name="bestSale" 
-																th:field="*{bestSale}" th:value="true" th:check>
+															<input type="radio" class="flat" id="status" 
+																	th:field="*{status}" th:value="DELIVERY" th:check> DELIVERY
+														</label>
+												</div>
+												<div class="checkbox" >
+													<label>
+														<input type="radio" class="flat" id="status" 
+																th:field="*{status}" th:value="CANCEL" th:check> CANCEL
 													</label>
 												</div>										
-											</div>
-										</div>
-										<div class="field item form-group">								
-											
-											<label class="col-form-label col-md-3 col-sm-3 label-align">Hình sản phẩm</label>										
-											<div class="col-md-9 col-sm-9">
-												<div style="width: 246.400px; height: 189.800px; border: outset; float: left; margin: 3px;"
-														 th:each="i : ${#numbers.sequence(0, amountPhotos-1)}">													
-													<p>
-													<img alt="Hình" th:id="thumb + ${i}" th:src="@{${allPhotos[i].photo}}" style="width: 100px;"/></p>
-																<br/>
-													<!--<form th:action="@{/delete_proImage}" th:method="POST" name="formDelProImage" th:object="${allPhotos[i]}" hidden="true">
-														<input type="text" name="idImage" th:field="*{allPhotos[i].id}"/>
-														<input type="submit" value="delete"  />
-													</form>
-													<a onclick="document.formDelProImage.submit()">Xóa</a>-->
-													<a th:href="@{/delete_proImage/{id}(id=${allPhotos[i].id})}">Xóa</a>		
-												</div>
-												<div style="width: 246.400px; height: 189.800px; border: outset; float: left; margin: 3px;" >													
-													<p>
-													<img alt="Hình 1" id="thumbnail0" style="width: 100px;" /></p>
-																<br/>
-													<p>			
-													<input type="file" name="productImage" id="productImage" accept="image/*" /></p>		
-												</div>
-												<div style="width: 246.400px; height: 189.800px; border: outset; float: left; margin: 3px;">													
-													<p>
-													<img alt="Hình 2" id="thumbnail1" style="width: 100px;"/></p>
-																<br/>
-													<p>			
-													<input type="file" name="productImage" id="productImage" accept="image/*" /></p>		
-												</div>
-												<div style="width: 246.400px; height: 189.800px; border: outset; float: left; margin: 3px;">													
-													<p>
-													<img alt="Hình 3" id="thumbnail2" style="width: 100px;"/></p>
-																<br/>
-													<p>			
-													<input type="file" name="productImage" id="productImage" accept="image/*" /></p>		
-												</div>
-												<div style="width: 246.400px; height: 189.800px; border: outset; float: left; margin: 3px;">													
-													<p>
-													<img alt="Hình 4" id="thumbnail3" style="width: 100px;"/></p>
-																<br/>
-													<p>			
-													<input type="file" name="productImage" id="productImage" accept="image/*" /></p>		
-												</div>			
 											</div>
 										</div>
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Thêm</button>
-													<button type='submit' class="btn btn-success"><a th:href="@{/list_product}"></a> DS Sản Phẩm</button>
+													<button type='submit' class="btn btn-primary">Chuyển trang thái</button>
+													<button type='reset' class="btn btn-success">Reset</button>
 												</div>
 											</div>
 										</div>
+										
 									</form>
 								</div>
 							</div>
@@ -266,14 +213,11 @@
 	<!--show productImage -->
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
-			$("input[id='photoName']").each(function(index) {
-				$(this).change(function(){
-					showProductImage(this, index);
-				});
+			$('#photoName').change(function() {
+				showProductImage(this);
 			});
 			
-			$("input[id='productImage']").each(function(index) {
+			$("input[name='productImage']").each(function(index) {
 				$(this).change(function(){
 					showExtraImage(this, index);
 				});
@@ -281,12 +225,12 @@
 			});
 		});
 		
-		function showProductImage(fileInput, index){
+		function showProductImage(fileInput){
 			file = fileInput.files[0];
 			reader = new FileReader();
 			
 			reader.onload = function(e){
-				$('#thumb'+index).attr('src', e.target.result);				
+				$('#thumb').attr('src', e.target.result);				
 			};
 			reader.readAsDataURL(file);
 		}

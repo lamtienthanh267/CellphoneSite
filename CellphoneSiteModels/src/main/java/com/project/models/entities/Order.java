@@ -1,6 +1,6 @@
 package com.project.models.entities;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
 
 import com.project.appenum.DiscountType;
 import com.project.appenum.PaymentMethod;
@@ -30,8 +31,8 @@ public class Order {
 	@Column(name="date_create")
 	private Date dateCreate;
 	
-	@Column(name="total_price")
-	private Double totalPrice;
+//	@Column(name="total_price")
+//	private Double totalPrice;
 	
 	@Column(name="address_delivery")
 	private String addressDelivery;
@@ -91,13 +92,13 @@ public class Order {
 		this.dateCreate = dateCreate;
 	}
 
-	public Double getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(Double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+//	public Double getTotalPrice() {
+//		return totalPrice;
+//	}
+//
+//	public void setTotalPrice(Double totalPrice) {
+//		this.totalPrice = totalPrice;
+//	}
 
 	public String getAddressDelivery() {
 		return addressDelivery;
@@ -194,5 +195,9 @@ public class Order {
 	public void setOderDetails(Set<OrderDetails> oderDetails) {
 		this.oderDetails = oderDetails;
 	}
-		
+	
+	@Transactional
+	public Double getTotalPrice() {
+		return payment + shipPrice + vat - discount;
+	}
 }

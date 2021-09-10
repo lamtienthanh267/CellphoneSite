@@ -122,10 +122,10 @@
 											<td class=" ">[[${order.note}]]</td>
 											<td class=" ">[[${order.status}]]</td>
 											<td class=" last">
-												<a >
+												<a th:href="@{/edit_order/{id}(id = ${order.id})}">
 													<i class="fa fa-pencil-square-o" title="chỉnh sửa"></i>
 												</a> &nbsp;
-												<a >
+												<a th:href="@{/delete_order/{id}(id = ${order.id})}">
 													<i class="glyphicon glyphicon-trash" title="xóa"></i>
 												</a>
 											</td>

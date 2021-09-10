@@ -19,4 +19,15 @@ public class OrderService {
 		return orderRepo.findAll();
 	}
 	
+	public Order getOrderById (Integer id) {
+		return orderRepo.getOrderById(id);
+	}
+	
+	public void deleteOrder (Integer id) {
+		orderRepo.deleteById(id);
+	}
+	
+	public void saveOrder(Order order) {
+		orderRepo.save(order);
+	}
 }

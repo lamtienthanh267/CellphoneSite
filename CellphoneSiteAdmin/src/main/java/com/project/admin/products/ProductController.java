@@ -84,7 +84,7 @@ public class ProductController {
 				image.setFileName(photoName);
 				image.setProduct(saveProduct);
 				images.add(imageService.saveImage(image));
-			}			
+			}		
 		}
 		
 		saveProduct.setImage(images);
@@ -139,6 +139,7 @@ public class ProductController {
 		model.addAttribute("curentPage", pageNum);
 		model.addAttribute("startCount", startCount);
 		model.addAttribute("endCount", endCount);
+		
 		return "list_product";
 	}
 	
@@ -155,13 +156,14 @@ public class ProductController {
 		List<Brand> allBrand = brandService.getAllBrand();
 		List<ProductImage> allPhotos = product.getPhotoName();
 		User user = userService.getUserByUsername(auth.getName());
-				
+		
 		ModelAndView modelAndView = new ModelAndView("edit_product");
 		modelAndView.addObject("user",user);
 		modelAndView.addObject("product", product);
 		modelAndView.addObject("allBrand", allBrand);
 		modelAndView.addObject("allCategory", allCategory);
 		modelAndView.addObject("allPhotos", allPhotos);
+		modelAndView.addObject("amountPhotos", allPhotos.size());
 		return modelAndView;
 	}
 	

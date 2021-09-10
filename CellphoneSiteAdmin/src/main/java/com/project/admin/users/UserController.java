@@ -63,11 +63,13 @@ public class UserController {
 	private RoleService roleService;
 	
 	@GetMapping("/add_user")
-	public String addUserView(Model model) {
-		User user = new User();
+	public String addUserView(Model model, Authentication auth) {
+		User user = userService.getUserByUsername(auth.getName());
+		User userRegister = new User();
 		List<Role> allRole = roleService.getAllRole();
 		
 		model.addAttribute("user",user);
+		model.addAttribute("userRegister",userRegister);
 		model.addAttribute("allRole", allRole);
 
 		return "add_user";
@@ -104,12 +106,12 @@ public class UserController {
 //	}
 	
 	@GetMapping("/list_user")
-	public String showListUser(Model model) {
-		return showListUser(model, 1, null, null);
+	public String showListUser(Model model, Authentication auth) {
+		return showListUser(model, 1, auth, null, null);
 	}
 	
 	@GetMapping("/list_user/{pageNum}")
-	public String showListUser(Model model, @PathVariable(name = "pageNum") int pageNum,
+	public String showListUser(Model model, @PathVariable(name = "pageNum") int pageNum, Authentication auth,
 								@Param("sortBy") String sortBy, @Param("sortDirection") String sortDirection) {
 		String direction = "asc";
 		if(sortDirection != null && sortDirection.equals("asc")) {
@@ -119,9 +121,10 @@ public class UserController {
 			sortBy = "userId";
 		}
 		
+		User user = userService.getUserByUsername(auth.getName());
 		Page<User> page = userService.getAllUser(pageNum, sortBy, direction);
 		List<User> allUser = page.getContent();
-		
+				
 		int startCount = (pageNum - 1) * UserService.PAGE_SIZE + 1;
 		int endCount = startCount + UserService.PAGE_SIZE - 1;
 		
@@ -129,6 +132,7 @@ public class UserController {
 			endCount = (int) page.getTotalElements();
 		}
 		
+		model.addAttribute("user", user);
 		model.addAttribute("allUser", allUser);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());

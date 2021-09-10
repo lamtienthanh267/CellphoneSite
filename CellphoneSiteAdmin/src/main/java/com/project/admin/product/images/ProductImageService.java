@@ -14,5 +14,12 @@ public class ProductImageService {
 	public ProductImage saveImage (ProductImage image) {
 		 return repo.save(image);
 	}
-
+	
+	public void deleteImage(Integer id) {
+		repo.deleteById(id);
+	}
+	
+	public ProductImage getProductImageById(Integer id) {
+		return repo.getProductImageById(id);
+	}
 }
