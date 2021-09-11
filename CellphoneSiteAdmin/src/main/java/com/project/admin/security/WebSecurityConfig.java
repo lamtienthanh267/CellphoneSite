@@ -54,7 +54,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				"/edit_product","/order_list", "/edit_order",
 				"/images/**", "/js/**", "/libs/**", "/vendors/**", "/src/**", "/css/**")
 		.permitAll()
-		.antMatchers("/add_user","/edit_user", "/delete_user").hasAnyAuthority("admin")
+		.antMatchers("/add_user","/edit_user/**", "/delete_user",
+						"/add_new_product", "/edit_product/**").hasAnyAuthority("admin")
+		.antMatchers("/add_user","/edit_user/**", "/add_new_product",
+						"/edit_product/**", "/edit_order/**").hasAnyAuthority("manager")
+		.antMatchers("/edit_order/**").hasAnyAuthority("sale")
+		.antMatchers("/add_new_product", "/edit_product/**").hasAnyAuthority("inventory")
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login_user").permitAll()
 		.usernameParameter("username")
