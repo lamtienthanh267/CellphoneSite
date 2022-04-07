@@ -115,13 +115,13 @@
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Giá cạnh tranh<span
 													class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text"  name="priceCompetitive" th:field="*{priceCompetitive}" />
+												<input class="form-control" type="text" name="priceCompetitive" th:field="*{priceCompetitive}" />
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Category<span>*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Loại sản phẩm<span>*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<select class="form-control" th:field="*{category}" name="category">
+												<select class="form-control" th:field="*{category}" name="category" >
 													<option  th:each="ctg : ${allCategory}" 
 															 th:value="${ctg.id}">
 															[[${ctg.categoryName}]]

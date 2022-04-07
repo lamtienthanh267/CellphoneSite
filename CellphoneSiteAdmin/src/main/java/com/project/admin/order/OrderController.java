@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.admin.orderdetails.OrderDetailsService;
 import com.project.admin.users.UserService;
 import com.project.appenum.StatusOrder;
 import com.project.models.entities.Order;
+import com.project.models.entities.OrderDetails;
 import com.project.models.entities.User;
 
 @Controller
@@ -27,6 +29,9 @@ public class OrderController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private OrderDetailsService orderDetailsService;
 	
 	@GetMapping("/order_list")
 	public String showOrderList(Model model, Authentication auth) {
@@ -57,5 +62,15 @@ public class OrderController {
 		
 		orderService.saveOrder(order);
 		return "redirect:/order_list";
+	}
+	
+	@GetMapping("/order_details/{id}")
+	public ModelAndView showOrderDetails(@PathVariable(name="id") Integer orderId, Authentication auth) {
+		User user = userService.getUserByUsername(auth.getName());
+		OrderDetails orderDetails = orderDetailsService.getOrderDetailsByOrderId(orderId);
+		ModelAndView modelAndView = new ModelAndView("order_details");
+		modelAndView.addObject("user",user);
+		modelAndView.addObject("orderDetails", orderDetails);
+		return modelAndView;
 	}
 }

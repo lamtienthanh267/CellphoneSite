@@ -79,18 +79,19 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping(value="/add_user", method = RequestMethod.POST)
-	public String doAddUser(@ModelAttribute("user") User user) {
+	public String doAddUser(@ModelAttribute("userRegister") User userRegister) {
+		System.out.println("username: "+userRegister.getUsername());
 		UserProfile profile = new UserProfile();
-		profile.setUser(user);
+		profile.setUser(userRegister);
 		profile.setPhoto("user.png");
-		user.setUserProfile(profile);
+		userRegister.setUserProfile(profile);
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		user.setPassword(encoder.encode(user.getPassword()));
+		userRegister.setPassword(encoder.encode(userRegister.getPassword()));
 		
-		if(userService.getUserByUsername(user.getUsername())==null) {
+		if(userService.getUserByUsername(userRegister.getUsername())==null) {
 
-			userService.addUser(user);
+			userService.addUser(userRegister);
 
 			return "redirect:/list_user";
 		}

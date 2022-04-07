@@ -50,16 +50,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers("/", "/register", "/login_error", "/403", "/management_page_master", "/add_user",
-				"/list_user", "/login_user", "/edit_user", "/add_new_product", "/user_profile","/list_product",
-				"/edit_product","/order_list", "/edit_order",
+				"/list_user", "/login_user", "/edit_user", "/user_profile","/list_product",
+				"/edit_product","/order_list", "/edit_order", "/add_new_product", "/delete_user", "/order_details",
 				"/images/**", "/js/**", "/libs/**", "/vendors/**", "/src/**", "/css/**")
 		.permitAll()
-		.antMatchers("/add_user","/edit_user/**", "/delete_user",
-						"/add_new_product", "/edit_product/**").hasAnyAuthority("admin")
-		.antMatchers("/add_user","/edit_user/**", "/add_new_product",
-						"/edit_product/**", "/edit_order/**").hasAnyAuthority("manager")
-		.antMatchers("/edit_order/**").hasAnyAuthority("sale")
-		.antMatchers("/add_new_product", "/edit_product/**").hasAnyAuthority("inventory")
+		.antMatchers("/delete_user/**").hasAnyAuthority("admin")						
+		.antMatchers("/add_user","/edit_user/**").hasAnyAuthority("manager", "admin")	
+		.antMatchers("/edit_order/**").hasAnyAuthority("sale", "manager")
+		.antMatchers("/add_new_product", "/edit_product/**").hasAnyAuthority("inventory", "admin", "manager")
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login_user").permitAll()
 		.usernameParameter("username")

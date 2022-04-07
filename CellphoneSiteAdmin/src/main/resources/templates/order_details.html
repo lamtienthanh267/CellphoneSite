@@ -80,74 +80,34 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" th:action="@{/edit_order}" method="POST" th:object="${order}"
+									<form class="" th:action="@{/edit_order}" method="POST" th:object="${orderDetails}"
 											enctype="multipart/form-data">
 										<input class="form-control" type="text" name="id" th:field="*{id}" hidden="true"/>
 											
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Ngày lập<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Product<span
 													class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text" name="dateCreate" th:field="*{dateCreate}" readonly="true"/>											
+												<input class="form-control" type="text" name="dateCreate" th:field="*{product.productName}" readonly="true"/>											
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tên người mua<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Price<span
 													class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="name" type="text" th:field="*{name}"/>												
+												<input class="form-control" name="name" type="text" th:field="*{product.price}"/>												
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Liên hệ<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Quantity<span
 													class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="phoneNumber" type="text" th:field="*{phoneNumber}"/>
+												<input class="form-control" name="phoneNumber" type="text" th:field="*{amount}"/>
 											</div>
 										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Địa chỉ<span
-													class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text"  name="addressDelivery" th:field="*{addressDelivery}" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Email<span
-													class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text"  name="email" th:field="*{email}" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Ghi chú<span
-													class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<textarea class="form-control" name='note' th:field="*{note}"></textarea></div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Phí giao hàng<span
-													class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="shipPrice" type="text" th:field="*{shipPrice}"/>												
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Giảm giá<span
-													class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="discount" type="text" th:field="*{discount}" />													 
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">VAT<span
-													class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="vat" type="text" th:field="*{vat}" />													 
-											</div>
-										</div>
-										<div class="field item form-group">
+										
+										<!--<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tổng tiền<span
 													class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
@@ -155,38 +115,13 @@
 												<label>Phương thức thành toán: [[${order.paymentMethod}]]</label>											
 											</div>
 										
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">Trạng thái đơn hàng</label>										
-											<div class="col-md-6 col-sm-6" >
-											
-												<div class="checkbox" >
-													<label>
-														<input type="radio" class="flat" id="status" 
-																th:field="*{status}" th:value="PROCESSING" th:check> PROCESSING
-													</label>
-													
-													
-												</div>
-												<div class="checkbox" >
-													<label>
-															<input type="radio" class="flat" id="status" 
-																	th:field="*{status}" th:value="DELIVERY" th:check> DELIVERY
-														</label>
-												</div>
-												<div class="checkbox" >
-													<label>
-														<input type="radio" class="flat" id="status" 
-																th:field="*{status}" th:value="CANCEL" th:check> CANCEL
-													</label>
-												</div>										
-											</div>
-										</div>
+										</div>-->
+										
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Chuyển trang thái</button>
-													<button type='reset' class="btn btn-success">Reset</button>
+													<a th:href="@{/order_list}" class="btn btn-primary">Quay lai</a>
+													
 												</div>
 											</div>
 										</div>
